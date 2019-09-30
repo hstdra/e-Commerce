@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <title>Admin Management</title>
+
+    <meta th:replace="~{/admin/fragment/library :: meta}"/>
+    <link th:replace="~{/admin/fragment/library :: link}"/>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Main-header -->
+    <div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Test', 'Table'} }) }"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Multi Filter Select</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="multi-filter-select" class="display table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script th:replace="~{/admin/fragment/library :: script}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#multi-filter-select').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+        $('select').selectpicker({
+            liveSearch: 'true',
+            size: 6
+        });
+    });
+</script>
+</body>
+</html>

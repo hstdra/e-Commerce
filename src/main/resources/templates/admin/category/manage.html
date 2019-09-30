@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Management</title>
+
+    <meta th:replace="~{/admin/fragment/library :: meta}"/>
+    <link th:replace="~{/admin/fragment/library :: link}"/>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Main-header -->
+    <div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Category', 'Management'} }) }"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h4 class="card-title">Category Management</h4>
+                                <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/category/add}">
+                                    <i class="fa fa-plus"></i>
+                                    Add Category
+                                </a>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="display table table-striped table-hover" id="multi-filter-select">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            <th>Total Product</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            <th>Total Product</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        <tr th:each="category : ${categories}">
+                                            <td th:utext="${category.id}"></td>
+                                            <td th:utext="${category.category}"></td>
+                                            <td th:utext="${category.products.size()}"></td>
+                                            <td>
+                                                <div class="form-button-action">
+                                                    <button class="btn btn-link btn-primary"
+                                                            data-original-title="Edit" data-toggle="tooltip"
+                                                            title="" type="button">
+                                                        <a class="fa fa-edit"
+                                                           th:href="@{~/admin/category/edit/{id}(id=${category.id})}"
+                                                        ></a>
+                                                    </button>
+                                                    <button class="btn btn-link btn-danger" data-original-title="Remove"
+                                                            data-toggle="tooltip"
+                                                            title=""
+                                                            type="button">
+                                                        <a class="fa fa-times text-danger"
+                                                           th:href="@{~/admin/category/delete/{id}(id=${category.id})}"
+                                                        ></a>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script th:replace="~{/admin/fragment/library :: script}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#multi-filter-select').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+        $('select').selectpicker({
+            liveSearch: 'true',
+            size: 6
+        });
+    });
+</script>
+</body>
+</html>

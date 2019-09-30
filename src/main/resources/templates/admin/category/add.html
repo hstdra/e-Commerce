@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <title>Admin Management</title>
+
+    <meta th:replace="~{/admin/fragment/library :: meta}"/>
+    <link th:replace="~{/admin/fragment/library :: link}"/>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Main-header -->
+    <div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Category', 'Add'} }) }"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form th:action="@{~/admin/category/save}" th:object="${category}" method="post">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Category</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group" hidden="hidden" contenteditable="false">
+                                        <label for="id">ID</label>
+                                        <input type="text" class="form-control form-control" id="id" th:field="*{id}" placeholder="ID">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="defaultInput">Category Name</label>
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{category}" placeholder="Category Name">
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <a class="btn btn-danger" th:href="@{~/admin/category}">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script th:replace="~{/admin/fragment/library :: script}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('select').selectpicker({
+            liveSearch: 'true',
+            size: 6
+        });
+    });
+</script>
+</body>
+</html>
