@@ -1,4 +1,4 @@
-package com.team.ecommerce.controller;
+package com.team.ecommerce.controller.admin;
 
 import com.team.ecommerce.entity.Category;
 import com.team.ecommerce.service.CategoryService;

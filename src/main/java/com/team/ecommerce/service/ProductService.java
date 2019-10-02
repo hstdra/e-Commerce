@@ -3,6 +3,7 @@ package com.team.ecommerce.service;
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,12 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public List<Product> listAll() {
+    public List<Product> getAll(Pageable pageable) {
+        return repository.getAll(pageable);
+    }
+
+
+    public List<Product> getAll() {
         return repository.findAll();
     }
 
