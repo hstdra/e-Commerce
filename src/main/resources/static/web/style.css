@@ -2545,14 +2545,11 @@ nav.menu ul li a {
 .product.product__style--3 .product__content .prize li {
   color: #ce7852;
   font-size: 14px;
-  /* margin-right:15px; */
-  font-weight: 700;
-}
+  margin-right:15px;
+  font-weight: 700; }
 .product.product__style--3 .product__content .prize li.old_prize {
   color: #7d7d7d;
-  text-decoration: line-through;
-  margin-left: 10px;
-}
+  text-decoration: line-through; }
 .brown--color .rating li.on i {
   color: #ce7852; }
 .color--pink .product.product__style--3 .product__thumb .action .actions_inner .add_to_links li a.quickview:hover,
