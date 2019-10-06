@@ -19,6 +19,11 @@ target/
 *.iml
 *.ipr
 
+### Eclipse ###
+.dbeaver
+/.mvn/
+/bin/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -32,3 +37,4 @@ build/
 
 ### Properties ###
 ./src/main/resources/application.properties
+*.properties
