@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin Management</title>
+
+<meta th:replace="~{/admin/fragment/library :: meta}" />
+<link th:replace="~{/admin/fragment/library :: link}" />
+</head>
+<body>
+	<div class="wrapper">
+		<!-- Main-header -->
+		<div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+
+		<!-- Sidebar -->
+		<div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+
+		<div class="main-panel">
+			<div class="content">
+				<div class="page-inner">
+					<div
+						th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'customer', 'Management'} }) }"></div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<form th:action="@{~/admin/customer/save}"
+								th:object="${user}" method="post">
+								<div class="card">
+									<div class="card-header">
+										<div class="card-title">Customer</div>
+									</div>
+									<div class="card-body">
+										<div class="form-group">
+                                        <label for="defaultInput">Customer Name</label>
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{fullname}" placeholder="Customer Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="defaultInput">Customer Password</label>
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{password}" placeholder="Customer Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="defaultInput">Customer Email</label>
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{email}" placeholder="Customer Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="defaultInput">Customer Role</label>
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{role}" placeholder="Customer Role">
+                                    </div>
+									</div>
+									<div class="card-action">
+										<button class="btn btn-success" type="submit">Submit</button>
+										<a class="btn btn-danger" th:href="@{~/admin/customer}">Cancel</a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+	<script th:replace="~{/admin/fragment/library :: script}"></script>
+
+	<script>
+    $(document).ready(function () {
+        $('#multi-filter-select').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+        $('select').selectpicker({
+            liveSearch: 'true',
+            size: 6
+        });
+    });
+</script>
+</body>
+</html>

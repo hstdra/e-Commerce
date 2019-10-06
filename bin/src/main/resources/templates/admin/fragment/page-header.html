@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+    <div class="page-header" th:fragment="page-header">
+        <h4 class="page-title" th:utext="Admin"></h4>
+        <ul class="breadcrumbs">
+            <li class="nav-home">
+                <a href="#">
+                    <i class="flaticon-home"></i>
+                </a>
+            </li>
+            <!--/*@thymesVar id="items" type=""*/-->
+            <span th:each="item : ${items}">
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#" th:utext="${item}"></a>
+                </li>
+            </span>
+        </ul>
+    </div>
+</html>

@@ -1,4 +1,4 @@
-package com.team.ecommerce.entity;
+  package com.team.ecommerce.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
