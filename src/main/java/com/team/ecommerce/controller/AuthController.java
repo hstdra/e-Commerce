@@ -1,14 +1,23 @@
 package com.team.ecommerce.controller;
 
+import com.team.ecommerce.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class AuthController {
-    @RequestMapping("/login1")
-    public String login1(@RequestParam(required = false) String message, final Model model) {
+    @Autowired
+    private UserService service;
+
+    @RequestMapping("/web/login")
+    public String customerLogin(@RequestParam(required = false) String message, final Model model) {
         if (message != null && !message.isEmpty()) {
             if (message.equals("logout")) {
                 model.addAttribute("message", "Logout!");
@@ -17,30 +26,23 @@ public class AuthController {
                 model.addAttribute("message", "Login Failed!");
             }
         }
-        return "login1";
+        return "web/login";
     }
 
-    @RequestMapping("/login2")
-    public String login2(@RequestParam(required = false) String message, final Model model) {
-        if (message != null && !message.isEmpty()) {
-            if (message.equals("logout")) {
-                model.addAttribute("message", "Logout!");
-            }
-            if (message.equals("error")) {
-                model.addAttribute("message", "Login Failed!");
-            }
+    @RequestMapping("/web/login_success")
+    public String loginSuccess(HttpSession httpSession) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            httpSession.setAttribute("customer", service.getByEmail(email));
         }
-        return "login2";
+        return "redirect:/web";
     }
 
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    @RequestMapping("/user")
-    public String user() {
-        return "user";
+    @RequestMapping("/web/logout_success")
+    public String logoutSuccess(HttpSession httpSession) {
+        httpSession.setAttribute("customer", null);
+        return "redirect:/web";
     }
 
     @RequestMapping("/403")

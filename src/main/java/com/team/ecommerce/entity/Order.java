@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +25,6 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
+    @OneToMany(mappedBy = "id.order")
+    private List<OrderDetail> orderDetails;
 }

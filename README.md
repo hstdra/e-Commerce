@@ -25,6 +25,7 @@ spring.datasource.url=<url>
 spring.datasource.username=<username>
 spring.datasource.password=<password>
 
+# OPTIONAL
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.generate-ddl=true

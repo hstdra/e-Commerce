@@ -17,6 +17,7 @@ public class Product {
     @JoinColumn(name = "product_category_id")
     private Category category;
     private String name;
+    private String image;
     @Column(columnDefinition = "INTEGER DEFAULT 0")
     private Integer quantity;
     private Long price;

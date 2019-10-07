@@ -130,9 +130,9 @@
                                      th:each="product : ${products}">
                                     <div class="product__thumb">
                                         <a class="first__img" href="single-product.html"><img alt="product image"
-                                                                                              src="images/books/1.jpg"></a>
+                                                                                              th:src="@{~/web/images/books/1.jpg}"></a>
                                         <a class="second__img animation1" href="single-product.html"><img
-                                                alt="product image" src="images/books/2.jpg"></a>
+                                                alt="product image" th:src="@{~/web/images/books/2.jpg}"></a>
                                         <div class="hot__box">
                                             <span class="hot-label">BEST SALLER</span>
                                         </div>
