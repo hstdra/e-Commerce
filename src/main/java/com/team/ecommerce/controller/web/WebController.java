@@ -1,7 +1,6 @@
 package com.team.ecommerce.controller.web;
 
 import com.team.ecommerce.entity.Product;
-import com.team.ecommerce.other.VnCurrency;
 import com.team.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +20,7 @@ import java.util.stream.IntStream;
 public class WebController {
     @Autowired
     private ProductService productService;
-    @Autowired
-    private VnCurrency vnCurrency;
+
     @RequestMapping("")
     public String shopGrid
             (Model model,
@@ -43,7 +41,6 @@ public class WebController {
         model.addAttribute("totalPage", IntStream.range(0, productPage.getTotalPages()).boxed().collect(Collectors.toList()));
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("products", productService.getAll(pageable));
-        model.addAttribute("VnCurrency", vnCurrency);
         return "web/shop-grid";
     }
 }

@@ -17,7 +17,7 @@ public class Order {
     private Integer id;
     @Column(nullable = false)
     private Integer status;
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,6 +25,10 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
+
+    public Long getTotalPrice() {
+        return orderDetails.stream().mapToLong(od -> od.getPrice() * od.getQuantity()).sum();
+    }
 }

@@ -141,35 +141,25 @@
                                         <h4><a href="single-product.html" th:utext="${product.name}"></a></h4>
                                         <ul class="prize d-flex">
                                             <li th:if="${product.discount != null}"
-                                                th:utext="${VnCurrency.format(product.discount)}"></li>
+                                                th:utext="${@vncurrency.format(product.discount)}"></li>
                                             <li th:if="${product.discount == null}"
-                                                th:utext="${VnCurrency.format(product.price)}"></li>
+                                                th:utext="${@vncurrency.format(product.price)}"></li>
                                             <li class="old_prize" th:if="${product.discount != null}"
-                                                th:utext="${VnCurrency.format(product.price)}"></li>
+                                                th:utext="${@vncurrency.format(product.price)}"></li>
                                         </ul>
                                         <div class="action">
                                             <div class="actions_inner">
                                                 <ul class="add_to_links">
-                                                    <li><a class="cart" href="cart.html"><i
-                                                            class="bi bi-shopping-bag4"></i></a></li>
-                                                    <li><a class="wishlist" href="wishlist.html"><i
+                                                    <li><a class="cart"
+                                                           th:href="@{~/web/cart/add/{id}(id=${product.id})}"><i
                                                             class="bi bi-shopping-cart-full"></i></a></li>
                                                     <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a>
                                                     </li>
-                                                    <li><a class="quickview modal-view detail-link" data-toggle="modal"
-                                                           href="#productmodal"
-                                                           title="Quick View"><i class="bi bi-search"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product__hover--content">
-                                            <ul class="rating d-flex">
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                            </ul>
+                                            <ul class="rating d-flex"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +168,8 @@
                             </div>
                             <ul class="wn__pagination">
                                 <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                <li th:each="num : ${totalPage}" th:classappend="${num.compareTo(page)} ? '' : 'active'">
+                                <li th:classappend="${num.compareTo(page)} ? '' : 'active'"
+                                    th:each="num : ${totalPage}">
                                     <a href="" th:utext="${num+1}"></a>
                                 </li>
                                 <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>

@@ -1,5 +1,8 @@
 package com.team.ecommerce.controller;
 
+import com.team.ecommerce.entity.Order;
+import com.team.ecommerce.entity.User;
+import com.team.ecommerce.service.OrderService;
 import com.team.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +17,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthController {
     @Autowired
-    private UserService service;
+    private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/web/login")
     public String customerLogin(@RequestParam(required = false) String message, final Model model) {
@@ -34,7 +39,11 @@ public class AuthController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String email = ((UserDetails) principal).getUsername();
-            httpSession.setAttribute("customer", service.getByEmail(email));
+            User customer = userService.getByEmail(email);
+            Order cart = orderService.getShopCart(customer.getId()) != null ? orderService.getShopCart(customer.getId()) : orderService.createShopCart(customer.getId());
+
+            httpSession.setAttribute("customer", customer);
+            httpSession.setAttribute("cart", cart);
         }
         return "redirect:/web";
     }
@@ -42,6 +51,7 @@ public class AuthController {
     @RequestMapping("/web/logout_success")
     public String logoutSuccess(HttpSession httpSession) {
         httpSession.setAttribute("customer", null);
+        httpSession.setAttribute("cart", null);
         return "redirect:/web";
     }
 
