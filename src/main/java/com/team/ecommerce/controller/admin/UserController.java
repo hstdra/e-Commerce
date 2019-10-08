@@ -58,7 +58,7 @@ public class UserController {
             service.save(user);
         } catch (Exception ignored) {
         }
-        return "redirect:/admin/category";
+        return "redirect:/admin/customer";
     }
 	
 	
