@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>POWERTHEN</title>
+
+    <meta th:replace="~{/web/fragment/library :: meta}"/>
+    <link th:replace="~{/web/fragment/library :: link}"/>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <footer th:replace="~{/web/fragment/header :: header}"></footer>
+    <!-- Search Popup -->
+    <footer th:replace="~{/web/fragment/search :: #main-search}"></footer>
+
+    <!-- Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--6"></div>
+
+    <!-- Start Shop Page -->
+    <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-6 col-12">
+                    <div class="my__account__wrapper">
+                        <h3 class="account__title">Login</h3>
+                        <form method="post" th:action="@{/customer_login}">
+                            <div class="account__form">
+                                <div class="input__box">
+                                    <label>Email<span>*</span></label>
+                                    <input name="email" type="text">
+                                </div>
+                                <div class="input__box">
+                                    <label>Password<span>*</span></label>
+                                    <input name="password" type="password">
+                                </div>
+                                <div class="form__btn">
+                                    <button type="submit">Login</button>
+                                </div>
+                                <a class="forget_pass" href="#">Lost your password?</a>
+                                <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+
+    <!-- Footer Area -->
+    <footer th:replace="~{/web/fragment/footer :: footer}"></footer>
+</div>
+<!-- //Main wrapper -->
+
+
+<script th:replace="~{/web/fragment/library :: script}"></script>
+
+</body>
+</html>

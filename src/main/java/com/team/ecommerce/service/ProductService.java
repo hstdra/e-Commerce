@@ -3,6 +3,7 @@ package com.team.ecommerce.service;
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class ProductService {
         return repository.getAll(pageable);
     }
 
+    public Page<Product> getPaginatedProducts(Pageable pageable){
+        return  repository.findAll(pageable);
+    }
 
     public List<Product> getAll() {
         return repository.findAll();
