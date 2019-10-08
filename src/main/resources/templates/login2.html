@@ -7,11 +7,11 @@
 <body>
 <h2>Form Login2</h2>
 <h4 th:text="${message}"></h4>
-<form name='login-form' th:action="@{/j_spring_security_login}" method='POST'>
+<form method='POST' name='login-form' th:action="@{/customer_login}">
     <table>
         <tr>
             <td>Email:</td>
-            <td><input type='text' name='email' value=''></td>
+            <td><input name='email' type='text'></td>
         </tr>
         <tr>
             <td>Password:</td>

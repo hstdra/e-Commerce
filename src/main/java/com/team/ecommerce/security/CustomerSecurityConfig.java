@@ -30,16 +30,16 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Cấu hình cho Login Form.
-        http.authorizeRequests().antMatchers("/user/**").hasRole("USER").and()
-                .formLogin()//
-                .loginProcessingUrl("/j_spring_security_login")//
-                .loginPage("/login2")//
-                .defaultSuccessUrl("/user")//
-                .failureUrl("/login2?message=error")//
-                .usernameParameter("email").passwordParameter("password")
+        http.authorizeRequests().antMatchers("/user/**").hasRole("CUSTOMER").and()
+                .formLogin()
+                .loginProcessingUrl("/customer_login")
+                .loginPage("/web/login")
+                .defaultSuccessUrl("/web/login_success")
+                .failureUrl("/web/login?message=error")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .and().exceptionHandling().accessDeniedPage("/403")
-                .and().logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/login2?message=logout");
+                .and().logout().logoutUrl("/customer_logout").logoutSuccessUrl("/web/login?message=logout");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }

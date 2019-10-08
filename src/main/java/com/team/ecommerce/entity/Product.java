@@ -17,12 +17,13 @@ public class Product {
     @JoinColumn(name = "product_category_id")
     private Category category;
     private String name;
+    private String image;
     @Column(columnDefinition = "INTEGER DEFAULT 0")
     private Integer quantity;
     private Long price;
     private Long discount;
     @Column(columnDefinition = "TEXT DEFAULT NULL")
     private String description;
-    @OneToMany(mappedBy = "id.field")
+    @OneToMany(mappedBy = "field")
     private List<FieldDetail> fields;
 }

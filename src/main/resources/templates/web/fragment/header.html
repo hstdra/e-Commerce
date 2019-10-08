@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <header class="oth-page header__area header__absolute sticky__header" id="wn__header">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-7 col-lg-2">
                 <div class="logo">
-                    <a href="index.html">
-                        <img alt="logo images" src="images/logo/logo.png">
+                    <a th:href="@{~/web}">
+                        <img alt="logo images" th:src="@{~/web/images/logo/logo.png}">
                     </a>
                 </div>
             </div>
             <div class="col-lg-8 d-none d-lg-block">
                 <nav class="mainmenu__nav">
                     <ul class="meninmenu d-flex justify-content-start">
-                        <li class="drop with--one--item"><a href="index.html">Home</a></li>
+                        <li class="drop with--one--item"><a th:href="@{~/web}">Home</a></li>
                         <li class="drop"><a href="#">Shop</a>
                             <div class="megamenu mega03">
                                 <ul class="item item03">
@@ -124,72 +124,47 @@
                 <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
                     <li class="shop_search"><a class="search__active" href="#"></a></li>
                     <li class="wishlist"><a href="#"></a></li>
-                    <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+                    <li class="shopcart" th:if="${session.cart != null}" th:with="cart = ${ session.cart}">
+                        <a class="cartbox_active" href="#"><span class="product_qun"
+                                                                 th:utext="${cart.orderDetails.size()}"></span></a>
                         <!-- Start Shopping Cart -->
                         <div class="block-minicart minicart__active">
                             <div class="minicart-content-wrapper">
                                 <div class="micart__close">
-                                    <span>close</span>
+                                    <span>CLOSE</span>
                                 </div>
-                                <div class="items-total d-flex justify-content-between">
-                                    <span>3 items</span>
-                                    <span>Cart Subtotal</span>
-                                </div>
-                                <div class="total_amount text-right">
-                                    <span>$66.00</span>
+                                <div class="total_amount items-total d-flex justify-content-between">
+                                    <span th:utext='${cart.orderDetails.size() + " items"}'></span>
+                                    <span th:utext='${@vncurrency.format(cart.getTotalPrice())}'></span>
                                 </div>
                                 <div class="mini_action checkout">
                                     <a class="checkout__btn" href="cart.html">Go to Checkout</a>
                                 </div>
                                 <div class="single__items">
                                     <div class="miniproduct">
-                                        <div class="item01 d-flex">
+                                        <div class="item01 d-flex mt--20" th:each="orderDetail : ${cart.orderDetails}">
                                             <div class="thumb">
                                                 <a href="product-details.html"><img
-                                                        alt="product images" src="images/product/sm-img/1.jpg"></a>
+                                                        alt="product images" th:src="${orderDetail.product.image}"></a>
                                             </div>
                                             <div class="content">
-                                                <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-                                                <span class="prize">$30.00</span>
+                                                <h6><a href="product-details.html"
+                                                       th:utext="${orderDetail.product.name}"></a></h6>
+                                                <span class="prize"
+                                                      th:utext='${@vncurrency.format(orderDetail.price)}'></span>
                                                 <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 01</span>
+                                                    <span class="qun"
+                                                          th:utext='${"Quantity: " + orderDetail.quantity}'></span>
                                                     <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item01 d-flex mt--20">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img
-                                                        alt="product images" src="images/product/sm-img/3.jpg"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">Impulse Duffle</a></h6>
-                                                <span class="prize">$40.00</span>
-                                                <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 03</span>
-                                                    <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item01 d-flex mt--20">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img
-                                                        alt="product images" src="images/product/sm-img/2.jpg"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">Compete Track Tote</a></h6>
-                                                <span class="prize">$40.00</span>
-                                                <div class="product_prize d-flex justify-content-between">
-                                                    <span class="qun">Qty: 03</span>
-                                                    <ul class="d-flex justify-content-end">
-                                                        <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                                                        <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
+                                                        <li>
+                                                            <a th:href="@{~/web/cart/add/{id}(id=${orderDetail.product.id})}"><i
+                                                                    class="zmdi zmdi-plus"></i></a></li>
+                                                        <li>
+                                                            <a th:href="@{~/web/cart/minus/{id}(id=${orderDetail.product.id})}"><i
+                                                                    class="zmdi zmdi-minus"></i></a></li>
+                                                        <li>
+                                                            <a th:href="@{~/web/cart/delete/{id}(id=${orderDetail.product.id})}"><i
+                                                                    class="zmdi zmdi-delete"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -206,64 +181,26 @@
                     <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                         <div class="searchbar__content setting__block">
                             <div class="content-inner">
-                                <div class="switcher-currency">
+                                <div class="switcher-currency" th:if="${session.customer != null}">
                                     <strong class="label switcher-label">
-                                        <span>Currency</span>
-                                    </strong>
-                                    <div class="switcher-options">
-                                        <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">USD - US Dollar</span>
-                                            <ul class="switcher-dropdown">
-                                                <li>GBP - British Pound Sterling</li>
-                                                <li>EUR - Euro</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="switcher-currency">
-                                    <strong class="label switcher-label">
-                                        <span>Language</span>
-                                    </strong>
-                                    <div class="switcher-options">
-                                        <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">English01</span>
-                                            <ul class="switcher-dropdown">
-                                                <li>English02</li>
-                                                <li>English03</li>
-                                                <li>English04</li>
-                                                <li>English05</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="switcher-currency">
-                                    <strong class="label switcher-label">
-                                        <span>Select Store</span>
-                                    </strong>
-                                    <div class="switcher-options">
-                                        <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">Fashion Store</span>
-                                            <ul class="switcher-dropdown">
-                                                <li>Furniture</li>
-                                                <li>Shoes</li>
-                                                <li>Speaker Store</li>
-                                                <li>Furniture</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="switcher-currency">
-                                    <strong class="label switcher-label">
-                                        <span>My Account</span>
+                                        <span th:utext='${session.customer.fullname}'></span>
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
-                                                <span><a href="#">Compare Product</a></span>
                                                 <span><a href="#">My Account</a></span>
-                                                <span><a href="#">My Wishlist</a></span>
-                                                <span><a href="#">Sign In</a></span>
-                                                <span><a href="#">Create An Account</a></span>
+                                                <span><a href="#">Order History</a></span>
+                                                <span><a href="#">Logout</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="switcher-currency" th:if="${session.customer == null}">
+                                    <div class="switcher-options">
+                                        <div class="switcher-currency-trigger">
+                                            <div class="setting__menu">
+                                                <span><a th:href="@{~/web/login}">Log In</a></span>
+                                                <span><a th:href="@{~/web/signup}">Create Account</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -279,7 +216,7 @@
             <div class="col-lg-12 d-none">
                 <nav class="mobilemenu__nav">
                     <ul class="meninmenu">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a th:href="@{~/web}">Home</a></li>
                         <li><a href="#">Pages</a>
                             <ul>
                                 <li><a href="about.html">About Page</a></li>
