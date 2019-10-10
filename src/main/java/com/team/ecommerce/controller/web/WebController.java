@@ -24,6 +24,7 @@ public class WebController {
     @RequestMapping("")
     public String shopGrid
             (Model model,
+             @RequestParam(name = "query", defaultValue = "") String query,
              @RequestParam(name = "page", defaultValue = "0") Integer page,
              @RequestParam(name = "size", defaultValue = "12") Integer size,
              @RequestParam(name = "sort", defaultValue = "ASC") String sort

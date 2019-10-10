@@ -30,7 +30,7 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/user/**").hasRole("CUSTOMER").and()
+        http.authorizeRequests().antMatchers("/web/cart/**").hasRole("CUSTOMER").and()
                 .formLogin()
                 .loginProcessingUrl("/customer_login")
                 .loginPage("/web/login")

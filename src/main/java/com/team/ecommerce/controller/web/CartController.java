@@ -41,8 +41,11 @@ public class CartController {
 
     @RequestMapping("update")
     public String updateShopCart(HttpSession session) {
-        Order cart = (Order) session.getAttribute("cart");
-        session.setAttribute("cart", orderService.getShopCart(cart.getUser().getId()));
+        try {
+            Order cart = (Order) session.getAttribute("cart");
+            session.setAttribute("cart", orderService.getShopCart(cart.getUser().getId()));
+        } catch (Exception ignored) {
+        }
         return "redirect:/web";
     }
 

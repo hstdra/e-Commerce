@@ -6,6 +6,8 @@ import com.team.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class OrderService {
     @Autowired
@@ -21,7 +23,7 @@ public class OrderService {
         Order cart = new Order();
         cart.setStatus(0);
         cart.setUser(userRepository.getOne(user_id));
-        orderRepository.save(cart);
+        cart.setOrderDetails(new ArrayList<>());
         return cart;
     }
 }

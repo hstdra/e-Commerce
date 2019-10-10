@@ -1,5 +1,6 @@
 package com.team.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,16 +16,22 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false)
     private Integer status;
+
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date date;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
 

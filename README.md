@@ -29,6 +29,7 @@ spring.datasource.password=<password>
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 ```
 
 ## Features
