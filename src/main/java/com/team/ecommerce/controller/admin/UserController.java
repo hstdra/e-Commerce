@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -63,8 +64,8 @@ public class UserController {
     @PostMapping(value = "save")
     public String save(@ModelAttribute User user) {
         try {
-        	
         	user.setPassword(passEncode.encode(user.getPassword()));
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             service.save(user);
         } catch (Exception ignored) {
         }
