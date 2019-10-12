@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     
     @Query("from User where fullname=?1 order by id")
     List<User> findByFullnameSorted(String name);
+   
 }

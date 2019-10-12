@@ -3,6 +3,7 @@ package com.team.ecommerce.service;
 import com.team.ecommerce.entity.User;
 import com.team.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class UserService {
 	@Autowired
 	UserRepository userRepo;
-	
+	@Autowired
 	public List<User> showAll() {
 		return userRepo.findAll();
 	}
@@ -38,5 +39,9 @@ public class UserService {
 	
 	public void save(User u) {
 		userRepo.save(u);
+	}
+	
+	public List<User> getAll() {
+		return userRepo.findAll();
 	}
 }

@@ -5,9 +5,6 @@
 
     <meta th:replace="~{/admin/fragment/library :: meta}"/>
     <link th:replace="~{/admin/fragment/library :: link}"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js" ></script>
-	
 </head>
 <body>
 <div class="wrapper">
@@ -36,11 +33,12 @@
                                    </div>
                                     <div class="form-group">
                                         <label for="defaultInput">Customer Email</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{email}" placeholder="Customer Email" required>
+                                        <input type="email" class="form-control form-control" id="defaultInput" name="email" th:field="*{email}" placeholder="Customer Email" required>
+                                    	<div th:if="*{emailExist}">Email already existed</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="defaultInput">Customer Name</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{fullname}" placeholder="Customer Name">
+                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{fullname}" placeholder="Customer Name" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="defaultInput">Customer Password</label>
@@ -51,15 +49,15 @@
                                         <input type="password" class="form-control form-control" required name="confirmPassword" id="confirmPass" onkeyup='check();'>
 		 		                    </div>
 		 		                    <div class="form-group">
-		 		                    <span id='message'></span>
-		 		                    </div>
-		 		                    <div class="form-group">
 										<label for="defaultSelect">Role</label>
 										<select th:field="*{role}" class="form-control form-control" id="defaultSelect">
 											<option th:value = "CUSTOMER" th:text="ROLE_CUSTOMER"></option>
 											<option  th:value = "ADMIN" th:text="ROLE_ADMIN"></option>
 										</select>
 									</div>
+		 		                    <div class="form-group">
+		 		                    	<span id='message'></span>
+		 		                    </div>
                                 </div>
                                 <div class="card-action">
                                     <button class="btn btn-success" type="submit" id="submit" disabled>Submit</button>
@@ -76,23 +74,38 @@
 <script th:replace="~{/admin/fragment/library :: script}"></script>
 
 <script>
+$(document).ready(function () {
+    $('select').selectpicker({
+        liveSearch: 'true',
+        size: 6
+    });
+});
+
 var check = function() {
-	  if (document.getElementById('pass').value ==
+	  if (document.getElementById('pass').value !=
 	    document.getElementById('confirmPass').value) {
-	    document.getElementById('message').style.color = 'green';
-	    document.getElementById('message').innerHTML = 'matching';
-        document.getElementById('submit').disabled = false;
-	  } else {
-	    document.getElementById('message').style.color = 'red';
-	    document.getElementById('message').innerHTML = 'not matching';
+		document.getElementById('message').hidden=false;
         document.getElementById('submit').disabled = true;
+	    document.getElementById('message').style.color = 'red';
+	    document.getElementById('message').innerHTML = 'Password not matching';
+	  }else if(document.getElementById('pass').value.length<6){
+		 	document.getElementById('message').hidden=false;
+	        document.getElementById('submit').disabled = true;
+		    document.getElementById('message').style.color = 'red';
+		    document.getElementById('message').innerHTML = 'Password must have more than 6 character';
+	  }else if('&{checkEmail}'==true){
+		  document.getElementById('message').hidden=false;
+	        document.getElementById('submit').disabled = true;
+		    document.getElementById('message').style.color = 'red';
+		    document.getElementById('message').innerHTML = 'Email is already exist';
+	  }
+	  else {
+		document.getElementById('message').hidden=true;
+        document.getElementById('submit').disabled = false;
 
 	  }
 	}
 </script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	
 </body>
 </html>

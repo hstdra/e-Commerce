@@ -25,4 +25,6 @@ public class User {
     private List<Address> addresses;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
+    
+    private Boolean emailExist = false;
 }
