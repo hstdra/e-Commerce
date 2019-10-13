@@ -11,7 +11,8 @@ import java.util.List;
 public class UserService {
 	@Autowired
 	UserRepository userRepo;
-	
+
+    @Autowired
 	public List<User> showAll() {
 		return userRepo.findAll();
 	}
@@ -39,4 +40,8 @@ public class UserService {
 	public void save(User u) {
 		userRepo.save(u);
 	}
+
+    public List<User> getAll() {
+        return userRepo.findAll();
+    }
 }
