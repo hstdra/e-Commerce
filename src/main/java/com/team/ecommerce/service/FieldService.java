@@ -16,7 +16,7 @@ public class FieldService {
         return repository.findAll();
     }
 
-    public Field get(int id) {
+    public Field getById(int id) {
         return repository.getOne(id);
     }
 
@@ -27,4 +27,5 @@ public class FieldService {
     public void delete(int id) {
         repository.deleteById(id);
     }
+
 }

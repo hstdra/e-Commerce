@@ -16,9 +16,9 @@ public class CategoryService {
         return repository.findAll();
     }
 
-    public Category get(int id) {
+    public Category getOne(int id) {
         return repository.getOne(id);
-    }
+    }   
 
     public void save(Category product) {
         repository.save(product);

@@ -30,7 +30,7 @@ public class CategoryController {
 
     @RequestMapping("edit/{id}")
     public String edit(Model model, @PathVariable Integer id) {
-        model.addAttribute("category", service.get(id));
+        model.addAttribute("category", service.getOne(id));
         return "admin/category/edit";
     }
 
