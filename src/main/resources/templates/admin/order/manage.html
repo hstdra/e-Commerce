@@ -21,38 +21,12 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form th:action="@{~/admin/category/save}" th:object="${category}" method="post">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="card-title">Category</div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group" hidden="hidden" contenteditable="false">
-                                        <label for="id">ID</label>
-                                        <input type="text" class="form-control form-control" id="id" th:field="*{id}" placeholder="ID">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="defaultInput">Category Name</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{category}" placeholder="Category Name">
-                                    </div>
-
-                                </div>
-
-
-                                <div class="card-action">
-                                    <button class="btn btn-success" type="submit">Submit</button>
-                                    <a class="btn btn-danger" th:href="@{~/admin/category}">Cancel</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <h4 class="card-title">Field Management</h4>
-                                <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/field/add/{id}(id=${category.id})}">
+                                <h4 class="card-title">Category Management</h4>
+                                <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/category/add}">
                                     <i class="fa fa-plus"></i>
-                                    Add Field
+                                    Add Category
                                 </a>
                             </div>
 
@@ -62,36 +36,40 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Field</th>
+                                            <th>Category</th>
+                                            <th>Total Product</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Field</th>
+                                            <th>Category</th>
+                                            <th>Total Product</th>
                                             <th>Action</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="field : ${category.fields}">
-                                            <td th:utext="${field.id}"></td>
-                                            <td th:utext="${field.field}"></td>
+                                        <tr th:each="category : ${categories}">
+                                            <td th:utext="${category.id}"></td>
+                                            <td th:utext="${category.category}"></td>
+                                            <td th:utext="${category.products.size()}"></td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <button class="btn btn-link btn-primary"
                                                             data-original-title="Edit" data-toggle="tooltip"
                                                             title="" type="button">
                                                         <a class="fa fa-edit"
-                                                           th:href="@{~/admin/field/edit/{id}(id=${field.id})}"
+                                                           th:href="@{~/admin/category/edit/{id}(id=${category.id})}"
                                                         ></a>
                                                     </button>
                                                     <button class="btn btn-link btn-danger" data-original-title="Remove"
                                                             data-toggle="tooltip"
                                                             title=""
                                                             type="button">
-
-                                                        <a class="fa fa-times" th:href="@{~/admin/field/delete/{id}(id=${field.id})}"></a>
+                                                        <a class="fa fa-times text-danger"
+                                                           th:href="@{~/admin/category/delete/{id}(id=${category.id})}"
+                                                        ></a>
                                                     </button>
                                                 </div>
                                             </td>
