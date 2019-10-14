@@ -34,12 +34,18 @@ public class UserController {
 	}
 	
     @RequestMapping("")
-	ModelAndView management() 
+	ModelAndView management()
 	{
 		ModelAndView mav = new ModelAndView("admin/customer/management");
 		mav.addObject("user",service.showAll());
 		return mav;
 	}
+
+//    @RequestMapping("")
+//    public String manage(Model model) {
+//        model.addAttribute("user", service.showAll());
+//        return "admin/customer/management";
+//    }
     
     @RequestMapping("edit/{id}")
     ModelAndView edit(@PathVariable int id) 
