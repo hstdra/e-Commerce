@@ -18,7 +18,11 @@ public class CategoryService {
 
     public Category getOne(int id) {
         return repository.getOne(id);
-    }   
+    }
+
+    public Category getOne(String category) {
+        return repository.getFirstByCategory(category);
+    }
 
     public void save(Category product) {
         repository.save(product);
