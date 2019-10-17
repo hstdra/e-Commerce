@@ -15,7 +15,6 @@ public class HibernateSearchInit implements ApplicationListener<ContextRefreshed
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {

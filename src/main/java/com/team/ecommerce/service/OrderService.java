@@ -24,6 +24,7 @@ public class OrderService {
         cart.setStatus(0);
         cart.setUser(userRepository.getOne(user_id));
         cart.setOrderDetails(new ArrayList<>());
+        orderRepository.save(cart);
         return cart;
     }
 }

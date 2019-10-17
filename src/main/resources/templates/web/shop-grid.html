@@ -32,22 +32,12 @@
                         <aside class="wedget__categories poroduct--cat">
                             <h3 class="wedget__title">Product Categories</h3>
                             <ul>
-                                <li><a href="#">Biography <span>(3)</span></a></li>
-                                <li><a href="#">Business <span>(4)</span></a></li>
-                                <li><a href="#">Cookbooks <span>(6)</span></a></li>
-                                <li><a href="#">Health & Fitness <span>(7)</span></a></li>
-                                <li><a href="#">History <span>(8)</span></a></li>
-                                <li><a href="#">Mystery <span>(9)</span></a></li>
-                                <li><a href="#">Inspiration <span>(13)</span></a></li>
-                                <li><a href="#">Romance <span>(20)</span></a></li>
-                                <li><a href="#">Fiction/Fantasy <span>(22)</span></a></li>
-                                <li><a href="#">Self-Improvement <span>(13)</span></a></li>
-                                <li><a href="#">Humor Books <span>(17)</span></a></li>
-                                <li><a href="#">Harry Potter <span>(20)</span></a></li>
-                                <li><a href="#">Land of Stories <span>(34)</span></a></li>
-                                <li><a href="#">Kids' Music <span>(60)</span></a></li>
-                                <li><a href="#">Toys & Games <span>(3)</span></a></li>
-                                <li><a href="#">hoodies <span>(3)</span></a></li>
+                                <li th:each="ct : ${categoryIntegerMap}">
+                                    <a href="#">
+                                        <span th:text='${ct.value}'></span>
+                                        <p th:text='${ct.key.category}'></p>
+                                    </a>
+                                </li>
                             </ul>
                         </aside>
                         <aside class="wedget__categories pro--range">
@@ -70,30 +60,16 @@
                                 </div>
                             </div>
                         </aside>
-                        <aside class="wedget__categories poroduct--tag">
-                            <h3 class="wedget__title">Product Tags</h3>
+                        <aside class="wedget__categories poroduct--cat" th:each="fmm : ${fieldMapMap}">
+                            <h3 class="wedget__title" th:utext="${fmm.key.field}"></h3>
                             <ul>
-                                <li><a href="#">Biography</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Cookbooks</a></li>
-                                <li><a href="#">Health & Fitness</a></li>
-                                <li><a href="#">History</a></li>
-                                <li><a href="#">Mystery</a></li>
-                                <li><a href="#">Inspiration</a></li>
-                                <li><a href="#">Religion</a></li>
-                                <li><a href="#">Fiction</a></li>
-                                <li><a href="#">Fantasy</a></li>
-                                <li><a href="#">Music</a></li>
-                                <li><a href="#">Toys</a></li>
-                                <li><a href="#">Hoodies</a></li>
+                                <li th:each="fd : ${fmm.value}">
+                                    <a href="#">
+                                        <span th:text='${fd.value}'></span>
+                                        <p th:text='${fd.key}'></p>
+                                    </a>
+                                </li>
                             </ul>
-                        </aside>
-                        <aside class="wedget__categories sidebar--banner">
-                            <img alt="banner images" src="images/others/banner_left.jpg">
-                            <div class="text">
-                                <h2>new products</h2>
-                                <h6>save up to <br> <strong>40%</strong>off</h6>
-                            </div>
                         </aside>
                     </div>
                 </div>
@@ -168,7 +144,7 @@
                             </div>
                             <ul class="wn__pagination">
                                 <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                <li th:classappend="${num.compareTo(page)} ? '' : 'active'"
+                                <li th:classappend="${num.equals(page)} ? 'active' : ''"
                                     th:each="num : ${totalPage}">
                                     <a href="" th:utext="${num+1}"></a>
                                 </li>
