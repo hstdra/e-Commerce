@@ -19,7 +19,9 @@ Provide system for management and selling product online
 * Thymeleaf
 
 ## Setup
-Clone our github project and config ./src/main/resourcesapplicaiton.properties like this:
+Clone our github project and config like this:
+
+./src/main/resources/applicaiton.properties
 ```properties
 spring.datasource.url=<url>
 spring.datasource.username=<username>
@@ -30,6 +32,11 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.generate-ddl=true
 spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+```
+./src/main/resources/hibernate.properties 
+```properties
+hibernate.search.default.directory_provider=filesystem
+hibernate.search.default.indexBase=/var/lucene/indexes
 ```
 
 ## Features
@@ -49,15 +56,14 @@ spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 
 ## To-do list:
 * Admin managment
-	* Customer management (HIU)
+	* User and Product management (HIU)
 	* Storage history management (POM)
-	* Category and Field manegement (INSIDE)
+	* Order manegement (INSIDE)
 	
 * Business Web
-	* Show all products (HST)
-	* Filter products (HST)
 	* View one product (HST)
-	
+	* Shop cart (HST)
+	* Check out (hST)
 ## Status
 Project is inprogress
 
