@@ -28,10 +28,6 @@ public class User {
     private String role;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Address> addresses;
-
-    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 }
