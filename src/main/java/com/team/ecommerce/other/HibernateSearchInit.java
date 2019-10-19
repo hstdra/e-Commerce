@@ -1,7 +1,5 @@
 package com.team.ecommerce.other;
 
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -19,12 +17,12 @@ public class HibernateSearchInit implements ApplicationListener<ContextRefreshed
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-        try {
-            fullTextEntityManager.createIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            System.out.println("Error occured trying to build Hibernate Search indexes "
-                    + e.toString());
-        }
+//        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+//        try {
+//            fullTextEntityManager.createIndexer().startAndWait();
+//        } catch (InterruptedException e) {
+//            System.out.println("Error occured trying to build Hibernate Search indexes "
+//                    + e.toString());
+//        }
     }
 }

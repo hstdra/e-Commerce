@@ -26,10 +26,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    
+    private String address;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
