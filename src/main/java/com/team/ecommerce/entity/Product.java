@@ -15,6 +15,7 @@ import org.hibernate.search.annotations.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -58,6 +59,7 @@ public class Product {
 
     private Long price;
 
+    @Field(name = "discount")
     private Long discount;
 
     @Field(termVector = TermVector.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "edgeNgram"))
@@ -77,18 +79,22 @@ public class Product {
 
     @Field(name = "fieldDetailSearch", analyzer = @Analyzer(definition = "without_edgeNgram"))
     public String getFieldDetailSearch() {
-        StringBuilder stringBuilder = new StringBuilder();
-        fieldDetails.forEach(fd -> {
-            stringBuilder.append(fd.getField().getField()).append("::").append(fd.getDetail()).append("  ");
-        });
-        return stringBuilder.toString();
+        try {
+            return fieldDetails.stream().map(fd -> fd.getField().getField() + "::" + fd.getDetail() + "  ").collect(Collectors.joining());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Field(name = "fieldDetails", analyze = Analyze.NO, bridge = @FieldBridge(impl = CollectionToCSVBridge.class))
     @Facet(forField = "fieldDetails", name = "fieldDetailsFacet")
     public List<String> getFieldDetailsFacet() {
-        return new ArrayList<String>() {{
-            fieldDetails.forEach(fd -> add(fd.getField().getField() + "::" + fd.getDetail()));
-        }};
+        try {
+            return new ArrayList<String>() {{
+                fieldDetails.stream().map(fd -> fd.getField().getField() + "::" + fd.getDetail()).forEach(this::add);
+            }};
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 }

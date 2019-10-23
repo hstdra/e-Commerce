@@ -1350,7 +1350,9 @@ Elements Styles
   padding: 0 5px;
   position: fixed;
   right: 0;
-  top: 50%; }
+    top: 30%;
+    border: 1px solid wheat;
+}
 .minisearch .field__search input {
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
@@ -6191,4 +6193,20 @@ a.checkout__title {
   section.wn_contact_area {
     padding-bottom: 60px;
   }
+}
+
+li.ul_field__search {
+    text-align: left;
+    font-size: 16px;
+    color: aliceblue;
+    padding: 5px;
+}
+
+li.ul_field__search > a {
+    color: white;
+}
+
+li.ul_field__search > a:hover {
+    color: orangered;
+    cursor: pointer;
 }

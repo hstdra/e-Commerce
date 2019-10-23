@@ -41,7 +41,6 @@
 ================================================================================*/
 
 (function ($) {
-    'use strict';
 
 
     /*============ Scroll Up Activation ============*/
@@ -553,6 +552,70 @@
         ]
     });
 
+    let url = new URL(window.location.href);
 
+    /*====== Price Filter ======*/
+    $('input.currency').on('keyup', function () {
+        $(this).val(this.value.replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+    });
+    $('.price--filter > a').click(function () {
+        url.searchParams.set("from", $('#min_price').val().replace(/\./g, ""));
+        url.searchParams.set("to", $('#max_price').val().replace(/\./g, ""));
+        window.location.href = url.href;
+    });
+
+    /*====== Category and Detail Filter ======*/
+
+    $('.category').click(function () {
+        url.searchParams.set("ct", $(this).find('p').html());
+        window.location.href = url.href;
+    });
+
+    $('.field_detail').click(function () {
+        let field = $(this).parent().parent().parent().find('h3').html();
+        let detail = $(this).find('p').html();
+        let before = url.searchParams.get("fds") != null ? url.searchParams.get("fds") : "";
+        url.searchParams.set("fds", before + field + "::" + detail + "+");
+        window.location.href = url.href;
+    });
+
+    /*====== Search ======*/
+    $('div.field__search > input').on('keyup', function (e) {
+        let q = $(this).val();
+        let url = new URL("http://" + window.location.host + "/api/product");
+        url.searchParams.set("q", q);
+
+        if (e.which === 13) {
+            let url = new URL(window.location.href);
+            url.searchParams.set("q", q);
+            window.location.href = url.href;
+        } else
+            $.ajax({
+                url: url.href, success: function (products) {
+                    $('div.field__search > ul').html("");
+                    for (const p of products) {
+                        let ele = "<li class=\"ul_field__search\">\n" +
+                            "                    <a href=\"" + "http://" + window.location.host + "/web/product/" + p.id + "\">" + p.name + "</a>\n" +
+                            "                </li>";
+
+                        $('div.field__search > ul').append(ele);
+                    }
+                }
+            });
+    });
+
+    /*====== Page Paging Click ======*/
+    $('.a_wn__pagination').click(function () {
+        url.searchParams.set('page', Number($(this).html()) - 1);
+        window.location.href = url.href;
+    });
+    $('.left_wn__pagination').click(function () {
+        url.searchParams.set('page', Number($('.a_wn__pagination').first().html()) - 1);
+        window.location.href = url.href;
+    });
+    $('.right_wn__pagination').click(function () {
+        url.searchParams.set('page', Number($('.a_wn__pagination').last().html()) + 1);
+        window.location.href = url.href;
+    });
 })(jQuery);
 
