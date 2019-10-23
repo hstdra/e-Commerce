@@ -32,39 +32,39 @@
                         <aside class="wedget__categories poroduct--cat">
                             <h3 class="wedget__title">Product Categories</h3>
                             <ul>
-                                <li th:each="ct : ${categoryIntegerMap}">
-                                    <a href="#">
+                                <li th:each="ct : ${categories}">
+                                    <a class="category" href="#">
                                         <span th:text='${ct.value}'></span>
-                                        <p th:text='${ct.key.category}'></p>
+                                        <p th:text='${ct.key}'></p>
                                     </a>
                                 </li>
                             </ul>
                         </aside>
-                        <aside class="wedget__categories pro--range">
+                        <aside class="wedget__categories poroduct--cat">
                             <h3 class="wedget__title">Filter by price</h3>
-                            <div class="content-shopby">
-                                <div class="price_filter s-filter clear">
-                                    <form action="#" method="GET">
-                                        <div id="slider-range"></div>
-                                        <div class="slider__range--output">
-                                            <div class="price__output--wrap">
-                                                <div class="price--output">
-                                                    <span>Price :</span><input id="amount" readonly="" type="text">
-                                                </div>
-                                                <div class="price--filter">
-                                                    <a href="#">Filter</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            <ul>
+                                <li>
+                                    <a>
+                                        <span><input class="currency" id="min_price" type="text"></span>
+                                        <p>From: </p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span><input class="currency" id="max_price" type="text"></span>
+                                        <p>To: </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="price--filter">
+                                <a href="#">Filter</a>
                             </div>
                         </aside>
-                        <aside class="wedget__categories poroduct--cat" th:each="fmm : ${fieldMapMap}">
-                            <h3 class="wedget__title" th:utext="${fmm.key.field}"></h3>
+                        <aside class="wedget__categories poroduct--cat" th:each="fds : ${fieldDetails}">
+                            <h3 class="wedget__title" th:utext="${fds.key}"></h3>
                             <ul>
-                                <li th:each="fd : ${fmm.value}">
-                                    <a href="#">
+                                <li th:each="fd : ${fds.value}">
+                                    <a class="field_detail" href="#">
                                         <span th:text='${fd.value}'></span>
                                         <p th:text='${fd.key}'></p>
                                     </a>
@@ -107,7 +107,8 @@
                                     <div class="product__thumb">
                                         <a class="first__img" href="single-product.html"><img alt="product image"
                                                                                               th:src="@{~/web/images/books/1.jpg}"></a>
-                                        <a class="second__img animation1" href="single-product.html"><img
+                                        <a class="second__img animation1"
+                                           th:href="@{~/web/product/{id}(id=${product.id})}"><img
                                                 alt="product image" th:src="@{~/web/images/books/2.jpg}"></a>
                                         <div class="hot__box">
                                             <span class="hot-label">BEST SALLER</span>
@@ -143,12 +144,14 @@
 
                             </div>
                             <ul class="wn__pagination">
-                                <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                <li><a class="left_wn__pagination" href="#"><i class="zmdi zmdi-chevron-left"></i></a>
+                                </li>
                                 <li th:classappend="${num.equals(page)} ? 'active' : ''"
                                     th:each="num : ${totalPage}">
-                                    <a href="" th:utext="${num+1}"></a>
+                                    <a class="a_wn__pagination" href="#" th:utext="${num+1}"></a>
                                 </li>
-                                <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                <li><a class="right_wn__pagination" href="#"><i class="zmdi zmdi-chevron-right"></i></a>
+                                </li>
                             </ul>
                         </div>
                     </div>

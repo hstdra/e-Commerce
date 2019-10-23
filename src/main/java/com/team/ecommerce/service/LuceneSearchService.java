@@ -27,9 +27,9 @@ public class LuceneSearchService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> search(String q, String ct, String fds) {
+    public List<Product> search(String q, String ct, String fds, String from, String to) {
         try {
-            return getFullTextQuery(q, ct, fds).getResultList();
+            return getFullTextQuery(q, ct, fds, from, to).getResultList();
         } catch (Exception e) {
             return null;
         }
@@ -44,7 +44,7 @@ public class LuceneSearchService {
                 .get();
     }
 
-    private FullTextQuery getFullTextQuery(String q, String ct, String fds) {
+    private FullTextQuery getFullTextQuery(String q, String ct, String fds, String from, String to) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
         QueryBuilder qb = getQueryBuilder();
@@ -69,13 +69,25 @@ public class LuceneSearchService {
                 .matching(fds)
                 .createQuery();
 
-        org.apache.lucene.search.Query query = qb.bool().must(query1).must(query2).must(query3).createQuery();
+        org.apache.lucene.search.Query query4 = from.equals("") ? qb.all().createQuery() : qb
+                .range()
+                .onField("discount")
+                .above(Long.valueOf(from))
+                .createQuery();
+
+        org.apache.lucene.search.Query query5 = to.equals("") ? qb.all().createQuery() : qb
+                .range()
+                .onField("discount")
+                .below(Long.valueOf(to))
+                .createQuery();
+
+        org.apache.lucene.search.Query query = qb.bool().must(query1).must(query2).must(query3).must(query4).must(query5).createQuery();
 
         return fullTextEntityManager.createFullTextQuery(query, Product.class);
     }
 
-    public LinkedHashMap<String, Integer> getCategory(String q, String ct, String fds) {
-        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds);
+    public LinkedHashMap<String, Integer> getCategory(String q, String ct, String fds, String from, String to) {
+        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to);
         FacetingRequest facetingRequest = getQueryBuilder().facet()
                 .name("category")
                 .onField("categoryFacet")
@@ -88,5 +100,27 @@ public class LuceneSearchService {
 
         return facets.stream().collect(Collectors.toMap(Facet::getValue, Facet::getCount, (e1, e2) -> e2,
                 LinkedHashMap::new));
+    }
+
+    public LinkedHashMap<String, LinkedHashMap<String, Integer>> getFieldDetails(String q, String ct, String fds, String from, String to) {
+        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to);
+        FacetingRequest facetingRequest = getQueryBuilder().facet()
+                .name("fieldDetails")
+                .onField("fieldDetailsFacet")
+                .discrete()
+                .createFacetingRequest();
+        FacetManager facetManager = fullTextQuery.getFacetManager();
+        facetManager.enableFaceting(facetingRequest);
+
+        List<Facet> facets = facetManager.getFacets("fieldDetails");
+
+        LinkedHashMap<String, LinkedHashMap<String, Integer>> map = new LinkedHashMap<>();
+        for (Facet f : facets) {
+            String[] s = f.getValue().split("::");
+            if (!map.containsKey(s[0]))
+                map.put(s[0], new LinkedHashMap<>());
+            map.get(s[0]).put(s[1], f.getCount());
+        }
+        return map;
     }
 }

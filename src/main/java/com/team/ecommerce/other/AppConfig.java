@@ -21,6 +21,4 @@ public class AppConfig {
     EntityManager entityManager() {
         return entityManager;
     }
-
-
 }

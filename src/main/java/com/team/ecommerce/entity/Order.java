@@ -28,6 +28,7 @@ public class Order {
     private User user;
     
     private String address;
+    private String phone;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
