@@ -41,20 +41,31 @@
                                              placeholder="Customer Email" required th:field="*{email}" type="text">
                                    </div>
                                      
-                                  <div class="form-group">
+                                   <div class="form-group">
                                         <label for="defaultInput">Customer Name</label>
                                        <input class="form-control form-control" id="defaultInput"
                                               placeholder="Customer Name" required th:field="*{fullname}" type="text">
-                                  </div>
+                                    </div>
+                                    
+                                    <div class="form-group" hidden="hidden" contenteditable="false">
+                                        <label for="defaultInput">Customer Password</label>
+                                        <input class="form-control form-control" id="defaultInput"
+                                               placeholder="Customer Password" required th:field="*{password}"
+                                               type="text">
+                                    </div>
                                    
                                   <div class="form-group">
 										<label for="defaultSelect">Role</label>
 										<select th:field="*{role}" class="form-control form-control" id="defaultSelect">
-											<option th:value = "ROLE_CUSTOMER" th:text="CUSTOMER"></option>
-											<option  th:value = "ROLE_ADMIN" th:text="ADMIN"></option>
+											<option th:value = "CUSTOMER" th:text="ROLE_CUSTOMER"></option>
+											<option  th:value = "ADMIN" th:text="ROLE_ADMIN"></option>
 										</select>
 									</div>
-                            
+                            		
+                            		<div class="form-group">
+                                    	<a th:href="@{/admin/customer/editPass/{id}(id=*{id}) }">Change Password</a>
+                                    </div>
+                            		
 									</div>
 									<div class="card-action">
 										<button class="btn btn-success" type="submit">Submit</button>
@@ -85,12 +96,10 @@
                             var val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
-
                             column
                                 .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
                         });
-
                     column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>')
                     });
@@ -102,29 +111,6 @@
             size: 6
         });
     });
-    var check = function () {
-        if (document.getElementById('pass').value !=
-            document.getElementById('confirmPass').value) {
-            document.getElementById('message').hidden = false;
-            document.getElementById('submit').disabled = true;
-            document.getElementById('message').style.color = 'red';
-            document.getElementById('message').innerHTML = 'Password not matching';
-        } else if (document.getElementById('pass').value.length < 6) {
-            document.getElementById('message').hidden = false;
-            document.getElementById('submit').disabled = true;
-            document.getElementById('message').style.color = 'red';
-            document.getElementById('message').innerHTML = 'Password must have more than 6 character';
-        } else if ('&{checkEmail}' == true) {
-            document.getElementById('message').hidden = false;
-            document.getElementById('submit').disabled = true;
-            document.getElementById('message').style.color = 'red';
-            document.getElementById('message').innerHTML = 'Email is already exist';
-        } else {
-            document.getElementById('message').hidden = true;
-            document.getElementById('submit').disabled = false;
-
-        }
-    }
 </script>
 </body>
 </html>
