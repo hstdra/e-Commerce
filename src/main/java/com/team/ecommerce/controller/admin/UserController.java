@@ -74,15 +74,12 @@ public class UserController {
     
     @PostMapping(value = "savePass")
     public String savePass(@ModelAttribute User user, @RequestParam("oldPass") String oldPass) {
-    	if(!service.get(user.getId()).getPassword().equals(oldPass)) {
-    		
+    	if(!passEncode.matches(oldPass, service.get(user.getId()).getPassword())) {
     		return "redirect:/admin/customer/editPass/"+user.getId();
     	}else {
         try {
-        	System.out.println(user.getPassword());
-			user.setPassword(passEncode.encode(user.getPassword()));
+			service.get(user.getId()).setPassword(passEncode.encode(user.getPassword()));
             service.save(user);
-            System.out.println(user.getPassword());
         } catch (Exception ignored) {
         	}
     	}
