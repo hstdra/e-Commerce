@@ -59,4 +59,5 @@ public class WebController {
         model.addAttribute("product", productService.get(id));
         return "web/single-product";
     }
+
 }

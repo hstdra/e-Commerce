@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>POWERTHEN</title>
+
+    <meta th:replace="~{/web/fragment/library :: meta}"/>
+    <link th:replace="~{/web/fragment/library :: link}"/>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <footer th:replace="~{/web/fragment/header :: header}"></footer>
+    <!-- Search Popup -->
+    <footer th:replace="~{/web/fragment/search :: #main-search}"></footer>
+
+    <!-- Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--6"></div>
+
+    <!-- Start Shop Page -->
+    <div class="cart-main-area section-padding--lg bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ol-lg-12">
+                    <form action="#">
+                        <div class="table-content wnro__table table-responsive">
+                            <table>
+                                <thead>
+                                <tr class="title-top">
+                                    <th class="product-thumbnail">Order ID</th>
+                                    <th class="product-name">Total Product</th>
+                                    <th class="product-price">Total Price</th>
+                                    <th class="product-quantity">Order Date</th>
+                                    <th class="product-quantity">Payment Type</th>
+                                    <th class="product-subtotal">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td class="product-name"><a th:href="@{~/order/{id}(id=${order.id})}"
+                                                                th:utext='${"Order #" + order.id}'></a></td>
+                                    <td><p th:utext='${order.orderDetails.size()}'></p></td>
+                                    <td><p th:utext='${@vncurrency.format(order.getTotalOrderPrice())}'></p></td>
+                                    <td><p th:utext='${@dateFormat.format(order.date)}'></p></td>
+                                    <td><p th:utext='${order.getPaymentType()}'></p></td>
+                                    <td><p th:utext='${order.getPaymentStatus()}'></p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <div class="cartbox__btn">
+                        <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+
+    <!-- Footer Area -->
+    <footer th:replace="~{/web/fragment/footer :: footer}"></footer>
+</div>
+<!-- //Main wrapper -->
+
+
+<script th:replace="~{/web/fragment/library :: script}"></script>
+
+</body>
+</html>

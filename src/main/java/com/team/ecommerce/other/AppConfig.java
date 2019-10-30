@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.text.SimpleDateFormat;
 
 @Configuration
 public class AppConfig {
@@ -15,6 +16,11 @@ public class AppConfig {
     @Bean("vncurrency")
     VnCurrency vnCurrency() {
         return new VnCurrency();
+    }
+
+    @Bean("dateFormat")
+    SimpleDateFormat dateFormat() {
+        return new SimpleDateFormat("dd/MM/yyyy");
     }
 
     @Bean

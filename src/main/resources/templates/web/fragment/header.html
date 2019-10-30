@@ -135,10 +135,10 @@
                                 </div>
                                 <div class="total_amount items-total d-flex justify-content-between">
                                     <span th:utext='${cart.orderDetails.size() + " items"}'></span>
-                                    <span th:utext='${@vncurrency.format(cart.getTotalPrice())}'></span>
+                                    <span th:utext="${@vncurrency.format(cart.getTotalCartPrice())}"></span>
                                 </div>
                                 <div class="mini_action checkout">
-                                    <a class="checkout__btn" href="cart.html">Go to Checkout</a>
+                                    <a class="checkout__btn" th:href="@{~/web/order/check-out}">Go to Checkout</a>
                                 </div>
                                 <div class="single__items">
                                     <div class="miniproduct">
@@ -188,9 +188,9 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
-                                                <span><a href="#">My Account</a></span>
-                                                <span><a href="#">Order History</a></span>
-                                                <span><a href="#">Logout</a></span>
+                                                <span><a th:href="@{~/web/my_order}">My Account</a></span>
+                                                <span><a th:href="@{~/web/order/history}">Order History</a></span>
+                                                <span><a th:href="@{~/web/logout_success}">Logout</a></span>
                                             </div>
                                         </div>
                                     </div>
