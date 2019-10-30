@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -15,16 +16,28 @@ public class OrderService {
     @Autowired
     UserRepository userRepository;
 
-    public Order getShopCart(int user_id) {
-        return orderRepository.getCustomerShopCart(user_id);
+    public Order getShopCart(int userId) {
+        return orderRepository.getCustomerShopCart(userId);
     }
 
-    public Order createShopCart(int user_id) {
+    public Order createShopCart(int userId) {
         Order cart = new Order();
         cart.setStatus(0);
-        cart.setUser(userRepository.getOne(user_id));
+        cart.setUser(userRepository.getOne(userId));
         cart.setOrderDetails(new ArrayList<>());
         orderRepository.save(cart);
         return cart;
+    }
+
+    public void saveOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    public Order getOrder(int orderId) {
+        return orderRepository.getOne(orderId);
+    }
+
+    public List<Order> getOrderHistoryByUser(int userId) {
+        return orderRepository.findAllByUser_IdOrderByIdDesc(userId);
     }
 }

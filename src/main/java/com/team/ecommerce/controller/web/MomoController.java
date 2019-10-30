@@ -1,5 +1,10 @@
 package com.team.ecommerce.controller.web;
 
+import com.mservice.allinone.models.QueryStatusTransactionResponse;
+import com.team.ecommerce.entity.Order;
+import com.team.ecommerce.service.MoMoService;
+import com.team.ecommerce.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +17,13 @@ import java.util.HashMap;
 @RestController
 @CrossOrigin
 public class MomoController {
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private MoMoService moMoService;
+
+
     @PostMapping("momo/notifyUrl")
     public HashMap notifyUrl(
             @RequestParam(defaultValue = "") String partnerCode,
@@ -29,9 +41,18 @@ public class MomoController {
             @RequestParam(defaultValue = "") String signature
     ) {
         System.out.println("Co response");
-        System.out.println(requestId);
-        System.out.println(message);
-        System.out.println(errorCode);
+
+        Order order = orderService.getOrder(Integer.parseInt(orderId));
+        try {
+            QueryStatusTransactionResponse transactionResponse = moMoService.transactionResponse(orderId, requestId);
+            if (transactionResponse.getErrorCode() == 0) {
+                order.setStatus(11);
+                orderService.saveOrder(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         return new HashMap<String, String>() {{
             put("partnerCode", partnerCode);

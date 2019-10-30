@@ -59,7 +59,6 @@ public class Product {
 
     private Long price;
 
-    @Field(name = "discount")
     private Long discount;
 
     @Field(termVector = TermVector.YES, analyze = Analyze.YES, store = Store.NO, analyzer = @Analyzer(definition = "edgeNgram"))
@@ -69,6 +68,11 @@ public class Product {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<FieldDetail> fieldDetails;
+
+    @Field(name = "finalPrice")
+    public Long getFinalPrice() {
+        return discount == null ? price : discount;
+    }
 
     @Field(name = "categorySearch", analyzer = @Analyzer(definition = "without_edgeNgram"))
     @Field(name = "category", analyze = Analyze.NO)

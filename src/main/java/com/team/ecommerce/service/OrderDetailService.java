@@ -29,10 +29,7 @@ public class OrderDetailService {
             orderDetail.setProduct(productRepository.getOne(product_id));
             orderDetail.setOrder(cart);
             orderDetail.setQuantity(1);
-
-            Long price = orderDetail.getProduct().getDiscount();
-            price = price != null ? price : orderDetail.getProduct().getPrice();
-            orderDetail.setPrice(price);
+            orderDetail.setPrice(orderDetail.getProduct().getFinalPrice());
         } else {
             orderDetail.setQuantity(orderDetail.getQuantity() + 1);
         }

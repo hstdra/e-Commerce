@@ -71,13 +71,13 @@ public class LuceneSearchService {
 
         org.apache.lucene.search.Query query4 = from.equals("") ? qb.all().createQuery() : qb
                 .range()
-                .onField("discount")
+                .onField("finalPrice")
                 .above(Long.valueOf(from))
                 .createQuery();
 
         org.apache.lucene.search.Query query5 = to.equals("") ? qb.all().createQuery() : qb
                 .range()
-                .onField("discount")
+                .onField("finalPrice")
                 .below(Long.valueOf(to))
                 .createQuery();
 
