@@ -72,17 +72,32 @@ public class UserController {
         return "redirect:/admin/customer";
     }
     
+//    @PostMapping(value = "savePass")
+//    public ModelAndView savePass(@ModelAttribute User user, @RequestParam("oldPass") String oldPass) {
+//    	ModelAndView mav = new ModelAndView();
+//    	if(!passEncode.matches(oldPass, service.get(user.getId()).getPassword())||!service.get(user.getId()).equals(oldPass)) {
+//    		mav.addObject("error", "Password is not correct");
+//    		mav.setViewName("admin/customer/editPass/" +user.getId() );
+//    		return mav;
+//    	}else {
+//        try {
+//			service.get(user.getId()).setPassword(passEncode.encode(user.getPassword()));
+//            service.save(user);
+//            mav.setViewName("admin/customer");
+//        } catch (Exception ignored) {
+//        	}
+//    	}
+//        return mav;
+//    }
+    
     @PostMapping(value = "savePass")
-    public String savePass(@ModelAttribute User user, @RequestParam("oldPass") String oldPass) {
-    	if(!passEncode.matches(oldPass, service.get(user.getId()).getPassword())) {
-    		return "redirect:/admin/customer/editPass/"+user.getId();
-    	}else {
-        try {
+    public String savePass(@ModelAttribute User user) {
+    	
+    	try {
 			service.get(user.getId()).setPassword(passEncode.encode(user.getPassword()));
             service.save(user);
         } catch (Exception ignored) {
         	}
-    	}
         return "redirect:/admin/customer";
     }
     

@@ -3,6 +3,7 @@ package com.team.ecommerce.service;
 import com.team.ecommerce.entity.User;
 import com.team.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +15,13 @@ public class UserService {
 
     @Autowired
 	public List<User> showAll() {
-		return userRepo.findAll();
+		return userRepo.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
 	
 	public List<User> searchByName(String name) {
 		return userRepo.findByFullnameSorted(name);
 	}
-
+	
 	public User getByEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
