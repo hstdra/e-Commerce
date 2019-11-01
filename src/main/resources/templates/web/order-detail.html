@@ -1,0 +1,109 @@
+﻿<!doctype html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>POWERTHEN</title>
+
+    <meta th:replace="~{/web/fragment/library :: meta}"/>
+    <link th:replace="~{/web/fragment/library :: link}"/>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <footer th:replace="~{/web/fragment/header :: header}"></footer>
+    <!-- Search Popup -->
+    <footer th:replace="~{/web/fragment/search :: #main-search}"></footer>
+
+    <!-- Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--6"></div>
+
+    <!-- Start Shop Page -->
+    <div class="cart-main-area section-padding--lg bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ol-lg-12">
+                    <div class="customer_details">
+                        <h3>BILLING DETAILS</h3>
+                        <div class="customar__field">
+                            <div class="input_box">
+                                <label>Full Name</label>
+                                <input disabled th:value="${order.name}" type="text">
+                            </div>
+                            <div class="input_box">
+                                <label>Phone Number</label>
+                                <input disabled th:value="${order.phone}" type="text">
+                            </div>
+                            <div class="input_box">
+                                <label>Address</label>
+                                <input disabled th:value="${order.address}" type="text">
+                            </div>
+                            <div class="input_box">
+                                <label>Payment Method</label>
+                                <input disabled th:value="${order.getPaymentType()}" type="text">
+                            </div>
+                            <div class="input_box">
+                                <label>Status</label>
+                                <input disabled th:value="${order.getPaymentStatus()}" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 ol-lg-12">
+                    <form action="#">
+                        <div class="table-content wnro__table table-responsive">
+                            <table>
+                                <thead>
+                                <tr class="title-top">
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="orderDetail : ${order.orderDetails}">
+                                    <td><a th:href="@{~/web/product/{id}(id=${orderDetail.product.id})}"
+                                           th:utext='${orderDetail.product.name}'></a></td>
+                                    <td><p th:utext='${orderDetail.quantity}'></p></td>
+                                    <td><p th:utext='${@vncurrency.format(orderDetail.price)}'></p></td>
+                                    <td>
+                                        <p th:utext='${@vncurrency.format(orderDetail.price * orderDetail.quantity)}'></p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <div class="cartbox__btn">
+                        <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                            <li th:if="${order.status == 10}"><a
+                                    th:href="@{~/web/order/repayment/{id}(id=${order.id})}">Repayment</a></li>
+                            <li th:if="${order.status == 1 ||order.status == 10 || order.status == 11}"><a
+                                    th:href="@{~/web/order/cancel/{id}(id=${order.id})}">Cancel Order</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="checkout__button" type="submit">
+                    <span><a th:href="@{~/web/order/history}">BACK TO ORDER HISTORY</a></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+
+    <!-- Footer Area -->
+    <footer th:replace="~{/web/fragment/footer :: footer}"></footer>
+</div>
+<!-- //Main wrapper -->
+
+
+<script th:replace="~{/web/fragment/library :: script}"></script>
+
+</body>
+</html>

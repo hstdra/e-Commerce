@@ -144,11 +144,11 @@
                                     <div class="miniproduct">
                                         <div class="item01 d-flex mt--20" th:each="orderDetail : ${cart.orderDetails}">
                                             <div class="thumb">
-                                                <a href="product-details.html"><img
+                                                <a th:href="@{~/web/product/{id}(id=${orderDetail.product.id})}"><img
                                                         alt="product images" th:src="${orderDetail.product.image}"></a>
                                             </div>
                                             <div class="content">
-                                                <h6><a href="product-details.html"
+                                                <h6><a th:href="@{~/web/product/{id}(id=${orderDetail.product.id})}"
                                                        th:utext="${orderDetail.product.name}"></a></h6>
                                                 <span class="prize"
                                                       th:utext='${@vncurrency.format(orderDetail.price)}'></span>
@@ -188,7 +188,7 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
-                                                <span><a th:href="@{~/web/my_order}">My Account</a></span>
+                                                <span><a th:href="@{~/web/account}">My Account</a></span>
                                                 <span><a th:href="@{~/web/order/history}">Order History</a></span>
                                                 <span><a th:href="@{~/web/logout_success}">Logout</a></span>
                                             </div>

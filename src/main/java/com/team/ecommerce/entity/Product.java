@@ -2,6 +2,7 @@ package com.team.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team.ecommerce.other.CollectionToCSVBridge;
+import com.team.ecommerce.other.CustomNumericBridge;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
@@ -69,7 +70,16 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<FieldDetail> fieldDetails;
 
-    @Field(name = "finalPrice")
+    @Field(name = "idSort", bridge = @FieldBridge(impl = CustomNumericBridge.class))
+    @NumericField(forField = "idSort")
+    @SortableField(forField = "idSort")
+    public Integer getIdSort() {
+        return id;
+    }
+
+    @Field(name = "finalPrice", bridge = @FieldBridge(impl = CustomNumericBridge.class))
+    @NumericField(forField = "finalPrice")
+    @SortableField(forField = "finalPrice")
     public Long getFinalPrice() {
         return discount == null ? price : discount;
     }

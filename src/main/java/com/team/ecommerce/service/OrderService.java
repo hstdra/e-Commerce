@@ -40,4 +40,12 @@ public class OrderService {
     public List<Order> getOrderHistoryByUser(int userId) {
         return orderRepository.findAllByUser_IdOrderByIdDesc(userId);
     }
+
+    public void cancelOrder(int orderId) {
+        Order order = getOrder(orderId);
+        if (order.getStatus() < 10)
+            order.setStatus(5);
+        else order.setStatus(15);
+        orderRepository.save(order);
+    }
 }

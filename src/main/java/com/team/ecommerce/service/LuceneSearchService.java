@@ -2,6 +2,8 @@ package com.team.ecommerce.service;
 
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.repository.ProductRepository;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
@@ -27,9 +29,9 @@ public class LuceneSearchService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> search(String q, String ct, String fds, String from, String to) {
+    public List<Product> search(String q, String ct, String fds, String from, String to, String sort) {
         try {
-            return getFullTextQuery(q, ct, fds, from, to).getResultList();
+            return getFullTextQuery(q, ct, fds, from, to, sort).getResultList();
         } catch (Exception e) {
             return null;
         }
@@ -44,7 +46,7 @@ public class LuceneSearchService {
                 .get();
     }
 
-    private FullTextQuery getFullTextQuery(String q, String ct, String fds, String from, String to) {
+    private FullTextQuery getFullTextQuery(String q, String ct, String fds, String from, String to, String sort) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
         QueryBuilder qb = getQueryBuilder();
@@ -83,11 +85,28 @@ public class LuceneSearchService {
 
         org.apache.lucene.search.Query query = qb.bool().must(query1).must(query2).must(query3).must(query4).must(query5).createQuery();
 
-        return fullTextEntityManager.createFullTextQuery(query, Product.class);
+        return fullTextEntityManager.createFullTextQuery(query, Product.class).setSort(getSort(sort));
+    }
+
+    private Sort getSort(String sort) {
+        switch (sort) {
+            case "ID_ASC":
+                return new Sort(SortField.FIELD_SCORE,
+                        new SortField("idSort", SortField.Type.INT, false));
+            case "PRICE_ASC":
+                return new Sort(SortField.FIELD_SCORE,
+                        new SortField("finalPrice", SortField.Type.LONG, false));
+            case "PRICE_DESC":
+                return new Sort(SortField.FIELD_SCORE,
+                        new SortField("finalPrice", SortField.Type.LONG, true));
+            default:
+                return new Sort(SortField.FIELD_SCORE,
+                        new SortField("idSort", SortField.Type.INT, true));
+        }
     }
 
     public LinkedHashMap<String, Integer> getCategory(String q, String ct, String fds, String from, String to) {
-        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to);
+        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to, "");
         FacetingRequest facetingRequest = getQueryBuilder().facet()
                 .name("category")
                 .onField("categoryFacet")
@@ -103,7 +122,7 @@ public class LuceneSearchService {
     }
 
     public LinkedHashMap<String, LinkedHashMap<String, Integer>> getFieldDetails(String q, String ct, String fds, String from, String to) {
-        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to);
+        FullTextQuery fullTextQuery = getFullTextQuery(q, ct, fds, from, to, "");
         FacetingRequest facetingRequest = getQueryBuilder().facet()
                 .name("fieldDetails")
                 .onField("fieldDetailsFacet")

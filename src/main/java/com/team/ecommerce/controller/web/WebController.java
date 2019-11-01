@@ -34,9 +34,9 @@ public class WebController {
              @RequestParam(name = "fds", defaultValue = "") String fds,
              @RequestParam(name = "from", defaultValue = "") String from,
              @RequestParam(name = "to", defaultValue = "") String to,
-             @RequestParam(name = "sort", defaultValue = "ASC") String sort
+             @RequestParam(name = "sort", defaultValue = "ID_DESC") String sort
             ) {
-        List<Product> products = luceneSearchService.search(q, ct, fds, from, to);
+        List<Product> products = luceneSearchService.search(q, ct, fds, from, to, sort);
 
         LinkedHashMap<String, Integer> categories = luceneSearchService.getCategory(q, ct, fds, from, to);
         if (!q.isEmpty() || !ct.isEmpty()) {

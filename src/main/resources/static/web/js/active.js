@@ -555,6 +555,11 @@
     let url = new URL(window.location.href);
 
     /*====== Price Filter ======*/
+    if (url.searchParams.get('from') != null)
+        $("#min_price").val(url.searchParams.get('from').replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+    if (url.searchParams.get('to') != null)
+        $("#max_price").val(url.searchParams.get('to').replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+
     $('input.currency').on('keyup', function () {
         $(this).val(this.value.replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
     });
@@ -617,5 +622,13 @@
         url.searchParams.set('page', Number($('.a_wn__pagination').last().html()) + 1);
         window.location.href = url.href;
     });
+
+    /*====== Sort Select Change ======*/
+    $("select#sort_by").change(function () {
+        url.searchParams.set('sort', $(this).children(":selected").val());
+        window.location.href = url.href;
+    });
+    $("select#sort_by").val(url.searchParams.get('sort'));
+
 })(jQuery);
 
