@@ -555,9 +555,9 @@
     let url = new URL(window.location.href);
 
     /*====== Price Filter ======*/
-    if ($("#min_price").val() != "")
+    if (url.searchParams.get('from') != null)
         $("#min_price").val(url.searchParams.get('from').replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
-    if ($("#max_price").val() != "")
+    if (url.searchParams.get('to') != null)
         $("#max_price").val(url.searchParams.get('to').replace(/[^0-9.]/g, "").replace(/\./g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
 
     $('input.currency').on('keyup', function () {
