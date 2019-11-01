@@ -12,21 +12,35 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MoMoService {
-    private static final Environment env = Environment.selectEnv(Environment.EnvTarget.DEV, Environment.ProcessType.PAY_GATE);
+    private final Environment ENV_MOMO = Environment.selectEnv(Environment.EnvTarget.DEV, Environment.ProcessType.PAY_GATE);
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    org.springframework.core.env.Environment env;
 
-    public CaptureMoMoResponse captureMoMoResponse(Order order, String returnUrl) throws Exception {
-        String notifyURL = "https://c99dd512.ngrok.io/momo/notifyUrl";
+    public synchronized CaptureMoMoResponse captureMoMoResponse(Order order, String returnUrl) throws Exception {
+        String notifyURL = env.getProperty("hostname") + "/momo/notifyUrl";
         String amount = String.valueOf(order.getTotalOrderPrice());
-        String orderId = String.valueOf(order.getId());
+        String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
-        String orderInfo = "Thanh toán đơn hàng #" + orderId;
+        String orderInfo = "Thanh toán đơn hàng #" + order.getId();
 
-        return CaptureMoMo.process(env, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, "");
+        return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, "localOrderId=" + order.getId());
+    }
+
+    public String getMoMoPayUrl(Order order) {
+        if (order.getStatus() == 10) {
+            try {
+                String returnUrl = env.getProperty("hostname") + "web/order/" + order.getId();
+                return "redirect:" + captureMoMoResponse(order, returnUrl).getPayUrl();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public QueryStatusTransactionResponse transactionResponse(String orderId, String requestId) throws Exception {
-        return QueryStatusTransaction.process(env, orderId, requestId);
+        return QueryStatusTransaction.process(ENV_MOMO, orderId, requestId);
     }
 }

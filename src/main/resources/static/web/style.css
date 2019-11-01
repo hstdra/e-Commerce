@@ -8771,3 +8771,16 @@ li.ul_field__search > a:hover {
     background: #e59285;
     color: white;
 }
+
+.product-image-single {
+    width: 450px;
+    height: 565px;
+    object-fit: contain;
+    border: 1px solid;
+}
+
+.product-image-grid {
+    width: 270px;
+    height: 340px;
+    object-fit: contain;
+}

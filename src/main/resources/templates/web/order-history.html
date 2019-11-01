@@ -43,7 +43,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="order : ${orders}">
-                                    <td class="product-name"><a th:href="@{~/order/{id}(id=${order.id})}"
+                                    <td class="product-name"><a th:href="@{~/web/order/{id}(id=${order.id})}"
                                                                 th:utext='${"Order #" + order.id}'></a></td>
                                     <td><p th:utext='${order.orderDetails.size()}'></p></td>
                                     <td><p th:utext='${@vncurrency.format(order.getTotalOrderPrice())}'></p></td>
@@ -55,11 +55,6 @@
                             </table>
                         </div>
                     </form>
-                    <div class="cartbox__btn">
-                        <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
-
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

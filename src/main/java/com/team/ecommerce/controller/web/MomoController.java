@@ -38,19 +38,17 @@ public class MomoController {
             @RequestParam(defaultValue = "") String message,
             @RequestParam(defaultValue = "") String localMessage,
             @RequestParam(defaultValue = "") String payType,
-            @RequestParam(defaultValue = "") String signature
+            @RequestParam(defaultValue = "") String signature,
+            @RequestParam(defaultValue = "") String extraData
     ) {
-        System.out.println("Co response");
-
-        Order order = orderService.getOrder(Integer.parseInt(orderId));
+        Order order = orderService.getOrder(Integer.parseInt(extraData.trim().split("=")[1]));
         try {
             QueryStatusTransactionResponse transactionResponse = moMoService.transactionResponse(orderId, requestId);
             if (transactionResponse.getErrorCode() == 0) {
                 order.setStatus(11);
                 orderService.saveOrder(order);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
 

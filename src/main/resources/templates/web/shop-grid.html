@@ -41,24 +41,27 @@
                             </ul>
                         </aside>
                         <aside class="wedget__categories poroduct--cat">
-                            <h3 class="wedget__title">Filter by price</h3>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <span><input class="currency" id="min_price" type="text"></span>
-                                        <p>From: </p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <span><input class="currency" id="max_price" type="text"></span>
-                                        <p>To: </p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="price--filter">
-                                <a href="#">Filter</a>
-                            </div>
+                            <form action="javascript:$('.price--filter > a').click();">
+                                <h3 class="wedget__title">Filter by price</h3>
+                                <ul>
+                                    <li>
+                                        <a>
+                                            <span><input class="currency" id="min_price" type="text"></span>
+                                            <p>From: </p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span><input class="currency" id="max_price" type="text"></span>
+                                            <p>To: </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="price--filter" hidden>
+                                    <a href="#">Filter</a>
+                                    <input type="submit">
+                                </div>
+                            </form>
                         </aside>
                         <aside class="wedget__categories poroduct--cat" th:each="fds : ${fieldDetails}">
                             <h3 class="wedget__title" th:utext="${fds.key}"></h3>
@@ -86,13 +89,11 @@
                                 <p th:utext='${"SHOW PRODUCT"}'></p>
                                 <div class="orderby__wrapper">
                                     <span>Sort By</span>
-                                    <select class="shot__byselect">
-                                        <option>Default sorting</option>
-                                        <option>HeadPhone</option>
-                                        <option>Furniture</option>
-                                        <option>Jewellery</option>
-                                        <option>Handmade</option>
-                                        <option>Kids</option>
+                                    <select class="shot__byselect" id="sort_by">
+                                        <option value="">Mới nhất</option>
+                                        <option value="ID_ASC">Cũ nhất</option>
+                                        <option value="PRICE_DESC">Cao nhất</option>
+                                        <option value="PRICE_ASC">Thấp nhất</option>
                                     </select>
                                 </div>
                             </div>
@@ -105,11 +106,12 @@
                                 <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12"
                                      th:each="product : ${products}">
                                     <div class="product__thumb">
-                                        <a class="first__img" href="single-product.html"><img alt="product image"
-                                                                                              th:src="@{~/web/images/books/1.jpg}"></a>
+                                        <a class="first__img" href="single-product.html">
+                                            <img alt="" class="product-image-grid" th:src="${product.image}">>
+                                        </a>
                                         <a class="second__img animation1"
                                            th:href="@{~/web/product/{id}(id=${product.id})}"><img
-                                                alt="product image" th:src="@{~/web/images/books/2.jpg}"></a>
+                                                alt="product image" th:src="${product.image}"></a>
                                         <div class="hot__box">
                                             <span class="hot-label">BEST SALLER</span>
                                         </div>

@@ -10,15 +10,11 @@ import com.team.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ProductService {
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -44,8 +40,9 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public void createProduct(String name, String category, Long price, Long discount, Integer quantity, Map<String, String> fieldDetails) {
+    public void createProduct(String name, String category, Long price, Long discount, Integer quantity, String image, Map<String, String> fieldDetails) {
         Product product = new Product();
+        product.setImage(image);
         product.setName(name);
         product.setCategory(categoryRepository.getFirstByCategory(category));
         product.setPrice(price);

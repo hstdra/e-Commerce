@@ -27,7 +27,7 @@ public class APIController {
 
     @GetMapping("product")
     public List<Product> searchProduct(@RequestParam(defaultValue = "") String q) {
-        List<Product> products = luceneSearchService.search(q, "", "", "", "");
+        List<Product> products = luceneSearchService.search(q, "", "", "", "", "");
         return products.subList(0, Math.min(products.size(), 8));
     }
 
