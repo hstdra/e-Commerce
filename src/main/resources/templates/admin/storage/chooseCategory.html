@@ -21,12 +21,12 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form th:object="categories" th:action=@"{/sendCategoryId}" method="post">
+                        <form th:object="${categories}" th:action="@{~/admin/storage/add}" method="post">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title">Product Category</div>
                                     <div class="card-body">
-                                        <select th:field="*{categories}">
+                                        <select name="getCategoryId">
                                             <option value=""> -----------------------</option>
                                             <option th:each="category : ${categories}"
                                                     th:value="${category.id}"
@@ -35,8 +35,10 @@
                                     </div>
                                 </div>
                                 <div class="card-action">
-                                    <a class="btn btn-success" th:href="@{~/admin/storage/add/{id}(id=${category.id})}}">Next</a>
-                                    <a class="btn btn-danger" th:href="@{~/admin/storage}">Cancel</a>
+                                    <div class="card-action">
+                                        <button class="btn btn-success" type="submit">Next</button>
+                                        <a class="btn btn-danger" th:href="@{~/admin/product}">Cancel</a>
+                                    </div>
                                 </div>
                             </div>
                         </form>

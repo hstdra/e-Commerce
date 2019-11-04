@@ -21,7 +21,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form th:action="@{~/admin/product/save}" th:object="${category}" method="post">
+                        <form th:action="@{~/admin/storage/save}" th:object="${product}" method="post">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title">Product</div>
@@ -29,32 +29,48 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="id">Name</label>
-                                        <input type="text" class="form-control form-control" id="id" name="name" placeholder="Name">
+                                        <input type="text" class="form-control form-control" id="id" name="name"
+                                               th:field="*{name}" placeholder="Name">
                                     </div>
-                                    <div class="form-group" >
+                                    <div class="form-group">
                                         <label for="defaultInput">Category</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{category}" placeholder="Category" readonly>
+                                        <input type="text" class="form-control form-control" id="defaultInput"
+                                               name="category" th:field="*{category}" readonly>
                                     </div>
-                                    <div class="form-group" hidden="hidden">
-                                        <label for="defaultInput">Category Id</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput" th:field="*{id}" placeholder="Category.id">
-                                    </div>
-                                    <div class="form-group" >
+                                    <div class="form-group">
                                         <label for="id">Quantity</label>
-                                        <input type="text" class="form-control form-control" id="quantity" name="quantity" placeholder="Quantity">
+                                        <input type="text" class="form-control form-control" id="quantity"
+                                               name="quantity" placeholder="Quantity">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Price</label>
-                                        <input type="text" class="form-control form-control" id="price" name="price" placeholder="Price">
+                                        <input type="text" class="form-control form-control" id="price" name="price"
+                                               th:field="*{price}" placeholder="Price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id">Discount</label>
+                                        <input type="text" class="form-control form-control" id="discount" name="price"
+                                               th:field="*{discount}" placeholder="Price">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Description</label>
-                                        <input type="text" class="form-control form-control" id="description" name="description" placeholder="Description">
+                                        <input type="text" class="form-control form-control" id="description"
+                                               name="description" th:field="*{description}" placeholder="Description">
                                     </div>
                                 </div>
-                                <div class="card-action">
-                                    <button class="btn btn-success" type="submit">Submit</button>
-                                    <a class="btn btn-danger" th:href="@{~/admin/product}">Cancel</a>
+                                <div class="card-header">
+                                    <div class="card-title">Field Details</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group" th:each="num : ${nums}" th:with="num = ${num}">
+                                        <label th:utext="${fields.get(num).field}"></label>
+                                        <input type="text" class="form-control form-control" name="name"
+                                               th:field="*{fieldDetails}" placeholder="Name">
+                                    </div>
+                                    <div class="card-action">
+                                        <button class="btn btn-success" type="submit">Submit</button>
+                                        <a class="btn btn-danger" th:href="@{~/admin/storage}">Cancel</a>
+                                    </div>
                                 </div>
                             </div>
                         </form>

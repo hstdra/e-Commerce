@@ -1,5 +1,6 @@
 package com.team.ecommerce.controller.admin;
 
+import com.team.ecommerce.entity.Category;
 import com.team.ecommerce.entity.History;
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.service.CategoryService;
@@ -11,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/storage")
@@ -31,23 +35,31 @@ public class StorageController {
         return "admin/storage/manage";
     }
 
+    // Import new product //
     @RequestMapping("chooseCategory")
     public String listAllCategory(Model model){
         model.addAttribute("categories", categoryService.listAll());
         return "admin/storage/chooseCategory";
     }
 
-    @RequestMapping("add/{id}")
-    public String addProduct(Model model, @PathVariable Integer id){
-        model.addAttribute("category", categoryService.getOne(id));
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String addProduct(Model model, @RequestParam("getCategoryId") Integer categoryId){
+        Product product = new Product();
+        Category category = categoryService.getOne(categoryId);
+        product.setCategory(category);
+        System.out.println(IntStream.range(0, category.getFields().size()).boxed().collect(Collectors.toList()));
+        model.addAttribute("nums", IntStream.range(0, category.getFields().size()).boxed().collect(Collectors.toList()));
+        model.addAttribute("product", product);
+        model.addAttribute("fields", category.getFields());
         return "admin/storage/add";
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("product") Product product) {
+    public String save(@ModelAttribute Product product){
         try {
-            productService.save(product);
-        } catch (Exception ignored) {
+            productService.createProduct(product.getName(), product.getCategory().getCategory(), product.getPrice(), product.getDiscount(), 0, null, new HashMap<>());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return "redirect:/admin/storage";
     }
