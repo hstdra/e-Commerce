@@ -34,13 +34,15 @@ public class ProductService {
 
     public void save(Product product) {
         productRepository.save(product);
+        product.getFieldDetails().forEach(fieldDetailRepository::save);
     }
 
     public void delete(int id) {
+        fieldDetailRepository.getAllByProduct(productRepository.getOne(id)).forEach(fieldDetailRepository::delete);
         productRepository.deleteById(id);
     }
 
-    public void createProduct(String name, String category, Long price, Long discount, Integer quantity, String image, Map<String, String> fieldDetails) {
+    public void saveProduct(String name, String category, Long price, Long discount, Integer quantity, String image, String description, Map<String, String> fieldDetails) {
         Product product = new Product();
         product.setImage(image);
         product.setName(name);
@@ -48,6 +50,7 @@ public class ProductService {
         product.setPrice(price);
         product.setDiscount(discount);
         product.setQuantity(quantity);
+        product.setDescription(description);
         product = productRepository.save(product);
 
         for (Map.Entry<String, String> fd : fieldDetails.entrySet()) {
@@ -62,7 +65,22 @@ public class ProductService {
         reindexProduct(product.getId());
     }
 
-    private void reindexProduct(int productId){
+    public void editProduct(Product product, Map<String, String> fieldDetails) {
+        Product p = productRepository.getOne(product.getId());
+        p.setImage(product.getImage());
+        p.setName(product.getName());
+        p.setPrice(product.getPrice());
+        p.setDiscount(product.getDiscount());
+        p.setDescription(product.getDescription());
+
+        p.getFieldDetails().forEach(fd -> {
+            fd.setDetail(fieldDetails.get(fd.getField().getField()));
+        });
+        p = productRepository.save(p);
+        reindexProduct(p.getId());
+    }
+
+    private void reindexProduct(int productId) {
         productRepository.save(get(productId));
     }
 }
