@@ -47,7 +47,7 @@
                                               placeholder="Customer Name" required th:field="*{fullname}" type="text">
                                     </div>
                                     
-                                    <div class="form-group">
+                                    <div class="form-group" hidden="hidden" contenteditable="false">
                                         <label for="defaultInput">Customer Password</label>
                                         <input class="form-control form-control" id="defaultInput"
                                                placeholder="Customer Password" required th:field="*{password}"
@@ -61,7 +61,11 @@
 											<option  th:value = "ADMIN" th:text="ROLE_ADMIN"></option>
 										</select>
 									</div>
-                            
+                            		
+                            		<div class="form-group">
+                                    	<a th:href="@{/admin/customer/editPass/{id}(id=*{id}) }">Change Password</a>
+                                    </div>
+                            		
 									</div>
 									<div class="card-action">
 										<button class="btn btn-success" type="submit">Submit</button>
@@ -92,12 +96,10 @@
                             var val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
-
                             column
                                 .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
                         });
-
                     column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + d + '">' + d + '</option>')
                     });
