@@ -18,7 +18,6 @@
         <div class="content">
             <div class="page-inner">
                 <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Category', 'Management'} }) }"></div>
-
                 <div class="row">
                     <div class="col-md-12">
                         <form th:action="@{~/admin/product/save}" th:object="${product}" method="post">
@@ -56,8 +55,6 @@
                                         <input type="text" class="form-control form-control" id="description" th:field="*{description}" placeholder="Description">
                                     </div>
                                 </div>
-
-
                                 <div class="card-action">
                                     <button class="btn btn-success" type="submit">Submit</button>
                                     <a class="btn btn-danger" th:href="@{~/admin/product}">Cancel</a>
@@ -65,62 +62,6 @@
                             </div>
                         </form>
                     </div>
-<!--                    <div class="col-md-12">-->
-<!--                        <div class="card">-->
-<!--                            <div class="card-header d-flex align-items-center">-->
-<!--                                <h4 class="card-title">Field Management</h4>-->
-<!--                                <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/field/add/{id}(id=${category.id})}">-->
-<!--                                    <i class="fa fa-plus"></i>-->
-<!--                                    Add Field-->
-<!--                                </a>-->
-<!--                            </div>-->
-
-<!--                            <div class="card-body">-->
-<!--                                <div class="table-responsive">-->
-<!--                                    <table class="display table table-striped table-hover" id="multi-filter-select">-->
-<!--                                        <thead>-->
-<!--                                        <tr>-->
-<!--                                            <th>ID</th>-->
-<!--                                            <th>Field</th>-->
-<!--                                            <th>Action</th>-->
-<!--                                        </tr>-->
-<!--                                        </thead>-->
-<!--                                        <tfoot>-->
-<!--                                        <tr>-->
-<!--                                            <th>ID</th>-->
-<!--                                            <th>Field</th>-->
-<!--                                            <th>Action</th>-->
-<!--                                        </tr>-->
-<!--                                        </tfoot>-->
-<!--                                        <tbody>-->
-<!--                                        <tr th:each="field : ${category.fields}">-->
-<!--                                            <td th:utext="${field.id}"></td>-->
-<!--                                            <td th:utext="${field.field}"></td>-->
-<!--                                            <td>-->
-<!--                                                <div class="form-button-action">-->
-<!--                                                    <button class="btn btn-link btn-primary"-->
-<!--                                                            data-original-title="Edit" data-toggle="tooltip"-->
-<!--                                                            title="" type="button">-->
-<!--                                                        <a class="fa fa-edit"-->
-<!--                                                           th:href="@{~/admin/field/edit/{id}(id=${field.id})}"-->
-<!--                                                        ></a>-->
-<!--                                                    </button>-->
-<!--                                                    <button class="btn btn-link btn-danger" data-original-title="Remove"-->
-<!--                                                            data-toggle="tooltip"-->
-<!--                                                            title=""-->
-<!--                                                            type="button">-->
-
-<!--                                                        <a class="fa fa-times" th:href="@{~/admin/field/delete/{id}(id=${field.id})}"></a>-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!--                                        </tbody>-->
-<!--                                    </table>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>

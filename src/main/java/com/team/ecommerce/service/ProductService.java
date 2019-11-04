@@ -59,6 +59,10 @@ public class ProductService {
             fieldDetail.setProduct(product);
             fieldDetailRepository.save(fieldDetail);
         }
+        reindexProduct(product.getId());
+    }
 
+    private void reindexProduct(int productId){
+        productRepository.save(get(productId));
     }
 }
