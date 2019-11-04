@@ -21,51 +21,60 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form th:action="@{~/admin/storage/save}" th:object="${product}" method="post">
+                        <form method="post" th:action="@{~/admin/storage/save}" th:object="${product}">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title">Product</div>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group" hidden>
+                                        <label for="id">Id</label>
+                                        <input class="form-control form-control" id="id" name="name" placeholder="Name"
+                                               th:field="*{id}" type="text">
+                                    </div>
                                     <div class="form-group">
                                         <label for="id">Name</label>
-                                        <input type="text" class="form-control form-control" id="id" name="name"
-                                               th:field="*{name}" placeholder="Name">
+                                        <input class="form-control form-control" id="name" name="name"
+                                               placeholder="Name"
+                                               th:field="*{name}" type="text">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="defaultInput">Category</label>
-                                        <input type="text" class="form-control form-control" id="defaultInput"
-                                               name="category" th:field="*{category}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="id">Quantity</label>
-                                        <input type="text" class="form-control form-control" id="quantity"
-                                               name="quantity" placeholder="Quantity">
+                                    <div class="form-group" hidden>
+                                        <label>Category</label>
+                                        <input class="form-control form-control" id="category" name="category"
+                                               readonly th:field="*{category}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Price</label>
-                                        <input type="text" class="form-control form-control" id="price" name="price"
-                                               th:field="*{price}" placeholder="Price">
+                                        <input class="form-control form-control" id="price" name="price"
+                                               placeholder="Price"
+                                               th:field="*{price}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Discount</label>
-                                        <input type="text" class="form-control form-control" id="discount" name="price"
-                                               th:field="*{discount}" placeholder="Price">
+                                        <input class="form-control form-control" id="discount" name="price"
+                                               placeholder="Price"
+                                               th:field="*{discount}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Description</label>
-                                        <input type="text" class="form-control form-control" id="description"
-                                               name="description" th:field="*{description}" placeholder="Description">
+                                        <input class="form-control form-control" name="description"
+                                               placeholder="Description" th:field="*{description}" type="text">
+                                    </div>
+                                    <div class="form-group" hidden>
+                                        <label for="id">Field Details</label>
+                                        <input class="form-control form-control" id="fds"
+                                               name="fds" placeholder="Description"
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="card-header">
                                     <div class="card-title">Field Details</div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group" th:each="num : ${nums}" th:with="num = ${num}">
-                                        <label th:utext="${fields.get(num).field}"></label>
-                                        <input type="text" class="form-control form-control" name="name"
-                                               th:field="*{fieldDetails}" placeholder="Name">
+                                <div class="card-body" id="field_details">
+                                    <div class="form-group" th:each="field : ${fields}">
+                                        <label th:utext="${field.field}"></label>
+                                        <input class="form-control form-control fd_input" placeholder="Detail"
+                                               type="text">
                                     </div>
                                     <div class="card-action">
                                         <button class="btn btn-success" type="submit">Submit</button>
@@ -87,32 +96,28 @@
 
 <script>
     $(document).ready(function () {
-        $('#multi-filter-select').DataTable({
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    var column = this;
-                    var select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
-            }
-        });
         $('select').selectpicker({
             liveSearch: 'true',
             size: 6
         });
+
+        $('.fd_input').on('keyup', function () {
+            let s = "";
+            $('.fd_input').each(function () {
+                s += $(this).val() + ";;;";
+            });
+            $('#fds').val(s.substring(0, s.length - 3));
+        });
+
+        updateFieldDetails();
+
+        function updateFieldDetails() {
+            let s = "";
+            $('.fd_input').each(function () {
+                s += $(this).val() + ";;;";
+            });
+            $('#fds').val(s.substring(0, s.length - 3));
+        }
     });
 </script>
 </body>

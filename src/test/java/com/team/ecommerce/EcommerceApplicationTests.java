@@ -142,7 +142,7 @@ public class EcommerceApplicationTests {
                     put("Thế hệ ram", g);
                 }
             };
-            productService.createProduct(name, category, price, discount, quantity, img, fieldDetails);
+            productService.saveProduct(name, category, price, discount, quantity, img, null, fieldDetails);
         }
     }
 }
