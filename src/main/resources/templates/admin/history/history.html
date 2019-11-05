@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Management</title>
+
+    <meta th:replace="~{/admin/fragment/library :: meta}"/>
+    <link th:replace="~{/admin/fragment/library :: link}"/>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Main-header -->
+    <div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Storage', 'History'} }) }"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h4 class="card-title">History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="display table table-striped table-hover" id="multi-filter-select">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Product</th>
+                                            <th>Type</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Product</th>
+                                            <th>Type</th>
+                                            <th>Quantity</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        <tr th:each="history : ${histories}">
+                                            <td th:utext="${history.id}"></td>
+                                            <td th:utext="${history.date}"></td>
+                                            <td th:utext="${history.product.name}"></td>
+                                            <td th:utext='${history.quantity > 0 ? "Import" : "Export"}'></td>
+                                            <td th:utext="${history.quantity > 0 ? history.quantity : -(history.quantity)}"></td>
+                                            <td th:utext="${history.description}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script th:replace="~{/admin/fragment/library :: script}"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#multi-filter-select').DataTable({
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+        table.order([1, 'desc']).draw();
+        $('select').selectpicker({
+            liveSearch: 'true',
+            size: 6
+        });
+    });
+</script>
+</body>
+</html>

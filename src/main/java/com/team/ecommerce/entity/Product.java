@@ -111,4 +111,9 @@ public class Product {
             return new ArrayList<>();
         }
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<History> histories;
+
 }
