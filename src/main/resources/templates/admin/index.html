@@ -3,16 +3,16 @@
 <head>
     <title>Admin Management</title>
 
-    <meta th:replace="~{/admin/fragment/library :: meta}"/>
-    <link th:replace="~{/admin/fragment/library :: link}"/>
+    <meta th:replace="~{admin/fragment/library :: meta}"/>
+    <link th:replace="~{admin/fragment/library :: link}"/>
 </head>
 <body>
 <div class="wrapper">
 	<!-- Main-header -->
-	<div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+    <div th:replace="~{admin/fragment/main-header :: .main-header}"></div>
 
     <!-- Sidebar -->
-	<div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+    <div th:replace="~{admin/fragment/sidebar :: .sidebar}"></div>
 
     <div class="main-panel">
         <div class="content">
@@ -590,7 +590,7 @@
 
     </div>
 </div>
-<script th:replace="~{/admin/fragment/library :: script}"></script>
+<script th:replace="~{admin/fragment/library :: script}"></script>
 
 <script th:src="@{ad/assets/js/demo.js}"></script>
 <script th:src="@{ad/assets/js/setting-demo.js}"></script>
