@@ -48,4 +48,9 @@ public class OrderService {
         else order.setStatus(15);
         orderRepository.save(order);
     }
+
+    public List<Order> getAllOrder() {
+        return orderRepository.findAllExceptCart();
+    }
+
 }

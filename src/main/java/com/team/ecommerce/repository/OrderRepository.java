@@ -12,4 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("FROM Order WHERE status <> 0 ORDER BY ID DESC")
     List<Order> findAllByUser_IdOrderByIdDesc(int userId);
+
+    @Query("FROM Order WHERE status <> 0 ORDER BY ID DESC")
+    List<Order> findAllExceptCart();
 }
