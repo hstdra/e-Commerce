@@ -10,6 +10,9 @@ import com.team.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -34,46 +37,6 @@ public class StorageController {
     public String listAll(Model model) {
         model.addAttribute("products", productService.getAll());
         return "admin/storage/manage";
-    }
-
-    // Import new product //
-    @RequestMapping("chooseCategory")
-    public String listAllCategory(Model model) {
-        model.addAttribute("categories", categoryService.listAll());
-        return "admin/storage/chooseCategory";
-    }
-
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String addProduct(Model model, @RequestParam("getCategoryId") Integer categoryId) {
-        Product product = new Product();
-        Category category = categoryService.getOne(categoryId);
-        product.setCategory(category);
-        product.setFieldDetails(new LinkedList<>());
-        category.getFields().forEach(f -> {
-            FieldDetail fieldDetail = new FieldDetail();
-            fieldDetail.setField(f);
-            product.getFieldDetails().add(fieldDetail);
-        });
-
-        model.addAttribute("fields", category.getFields());
-        model.addAttribute("product", product);
-        return "admin/storage/add";
-    }
-
-    @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(@ModelAttribute Product product, @RequestParam String fds) {
-        try {
-            Map<String, String> fieldDetails = new HashMap<>();
-            String[] details = fds.split(";;;");
-            Category category = categoryService.getOne(product.getCategory().getId());
-            for (int i = 0; i < category.getFields().size(); i++) {
-                fieldDetails.put(category.getFields().get(i).getField(), details[i]);
-            }
-            productService.saveProduct(product.getName(), product.getCategory().getCategory(), product.getPrice(), product.getDiscount(), 0, null, product.getDescription(), fieldDetails);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "redirect:/admin/storage";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
@@ -112,7 +75,9 @@ public class StorageController {
         int temp = 0;
         try {
             temp = Integer.parseInt(changeQuanity);
-            if (temp < 0) System.out.println("false");
+            if (temp < 0) {
+                System.out.println("false");
+            }
             else {
                 History history = new History();
                 history.setDescription(histotyDescription);
@@ -149,6 +114,19 @@ public class StorageController {
         } catch (Exception ignored) {
         }
         return "redirect:/admin/storage";
+    }
+
+    public class TextBoxValidator implements Validator {
+        @Override
+        public boolean supports(Class<?> clazz) {
+            return false;
+        }
+
+        @Override
+        public void validate(Object target, Errors errors) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(
+                    errors, "username", "required.username");
+        }
     }
 
 }
