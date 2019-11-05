@@ -40,6 +40,7 @@
                                             <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
+                                            <th>Discount</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -50,6 +51,7 @@
                                             <th>Category</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
+                                            <th>Discount</th>
                                             <th>Action</th>
                                         </tr>
                                         </tfoot>
@@ -59,7 +61,8 @@
                                             <th th:utext="${product.name}"></th>
                                             <td th:utext="${product.category.category}"></td>
                                             <td th:utext="${product.quantity}"></td>
-                                            <td th:utext="${product.price}"></td>
+                                            <td th:utext="${@vncurrency.format(product.price)}"></td>
+                                            <td th:utext='${product.discount != null ? @vncurrency.format(product.discount) : "Không"}'></td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <button class="btn btn-link btn-primary"

@@ -29,7 +29,8 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 col-12">
                     <div class="my__account__wrapper">
-                        <h3 class="account__title">Login</h3>
+                        <h3 class="account__title"
+                            th:utext='${message.isEmpty() ? "Log In" : "Log In - " + message}'></h3>
                         <form method="post" th:action="@{/customer_login}">
                             <div class="account__form">
                                 <div class="input__box">

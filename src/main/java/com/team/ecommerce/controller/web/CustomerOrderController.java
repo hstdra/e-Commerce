@@ -79,6 +79,6 @@ public class CustomerOrderController {
         session.setAttribute("cart", orderService.createShopCart(cart.getUser().getId()));
 
         String returnUrl = moMoService.getMoMoPayUrl(cart);
-        return returnUrl == null ? "web/shop-grid" : returnUrl;
+        return returnUrl == null ? "redirect:/web/order/" + cart.getId() : returnUrl;
     }
 }

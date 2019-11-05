@@ -7,12 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -71,25 +69,7 @@ public class UserController {
         }
         return "redirect:/admin/customer";
     }
-    
-//    @PostMapping(value = "savePass")
-//    public ModelAndView savePass(@ModelAttribute User user, @RequestParam("oldPass") String oldPass) {
-//    	ModelAndView mav = new ModelAndView();
-//    	if(!passEncode.matches(oldPass, service.get(user.getId()).getPassword())||!service.get(user.getId()).equals(oldPass)) {
-//    		mav.addObject("error", "Password is not correct");
-//    		mav.setViewName("admin/customer/editPass/" +user.getId() );
-//    		return mav;
-//    	}else {
-//        try {
-//			service.get(user.getId()).setPassword(passEncode.encode(user.getPassword()));
-//            service.save(user);
-//            mav.setViewName("admin/customer");
-//        } catch (Exception ignored) {
-//        	}
-//    	}
-//        return mav;
-//    }
-    
+
     @PostMapping(value = "savePass")
     public String savePass(@ModelAttribute User user) {
     	
