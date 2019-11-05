@@ -17,17 +17,18 @@
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
-                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Category', 'Management'} }) }"></div>
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Order', 'Management'} }) }"></div>
 
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <h4 class="card-title">Category Management</h4>
-                                <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/category/add}">
+                                <h4 class="card-title">Order Management</h4>
+                                <!--<a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/category/add}">
                                     <i class="fa fa-plus"></i>
                                     Add Category
-                                </a>
+                                </a>-->
                             </div>
 
                             <div class="card-body">
@@ -36,39 +37,45 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Category</th>
-                                            <th>Total Product</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Phone</th>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Category</th>
-                                            <th>Total Product</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Phone</th>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="category : ${categories}">
-                                            <td th:utext="${category.id}"></td>
-                                            <td th:utext="${category.category}"></td>
-                                            <td th:utext="${category.products.size()}"></td>
+                                        <tr th:each="order : ${orders}">
+                                            <td th:utext="${order.id}"></td>
+                                            <td th:utext="${order.name}"></td>
+                                            <td th:utext="${order.address}"></td>
+                                            <td th:utext="${order.phone}"></td>
+                                            <td th:utext="${@dateFormat.format(order.date)}"></td>
+                                            <td th:utext="${order.paymentType}"></td>
+                                            <td th:utext="${order.paymentStatus }"></td>
+
+
                                             <td>
                                                 <div class="form-button-action">
                                                     <button class="btn btn-link btn-primary"
                                                             data-original-title="Edit" data-toggle="tooltip"
                                                             title="" type="button">
                                                         <a class="fa fa-edit"
-                                                           th:href="@{~/admin/category/edit/{id}(id=${category.id})}"
-                                                        ></a>
-                                                    </button>
-                                                    <button class="btn btn-link btn-danger" data-original-title="Remove"
-                                                            data-toggle="tooltip"
-                                                            title=""
-                                                            type="button">
-                                                        <a class="fa fa-times text-danger"
-                                                           th:href="@{~/admin/category/delete/{id}(id=${category.id})}"
+                                                           th:href="@{~/admin/order/edit/{id}(id=${order.id})}"
                                                         ></a>
                                                     </button>
                                                 </div>
@@ -80,7 +87,11 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
+
+
             </div>
         </div>
 
