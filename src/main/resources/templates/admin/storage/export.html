@@ -17,7 +17,7 @@
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
-                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Category', 'Management'} }) }"></div>
+                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Storage', 'Export'} }) }"></div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="id">Quantity To Export</label>
-                                    <input type="text" class="form-control form-control" id="defaultInput" name="changeQuantity" placeholder="change Quantity">
+                                    <input type="number" class="form-control form-control" id="defaultInput" name="changeQuantity" placeholder="change Quantity">
                                 </div>
                                 <div class="form-group">
                                     <label for="id">History Description</label>
