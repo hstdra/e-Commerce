@@ -38,7 +38,7 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/web/cart/**").hasRole("CUSTOMER").and()
+        http.authorizeRequests().antMatchers("/web/cart/**").hasAnyRole("CUSTOMER", "ADMIN").and()
                 .formLogin()
                 .loginProcessingUrl("/customer_login")
                 .loginPage("/web/login")

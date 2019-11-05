@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Name</label>
-                                        <input class="form-control form-control" id="name" name="name"
+                                        <input class="form-control form-control" id="name" name="name" required
                                                placeholder="Name"
                                                th:field="*{name}" type="text">
                                     </div>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Price</label>
-                                        <input class="form-control form-control" id="price" name="price"
+                                        <input class="form-control form-control" id="price" name="price" required
                                                placeholder="Price"
                                                th:field="*{price}" type="number">
                                     </div>
@@ -54,6 +54,12 @@
                                         <input class="form-control form-control" id="discount" name="price"
                                                placeholder="Price"
                                                th:field="*{discount}" type="number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input class="form-control form-control" name="price"
+                                               placeholder="Image"
+                                               th:field="*{image}" type="text">
                                     </div>
                                     <div class="form-group">
                                         <label for="id">Description</label>
@@ -73,7 +79,7 @@
                                 <div class="card-body" id="field_details">
                                     <div class="form-group" th:each="field : ${fields}">
                                         <label th:utext="${field.field}"></label>
-                                        <input class="form-control form-control fd_input" placeholder="Detail"
+                                        <input class="form-control form-control fd_input" placeholder="Detail" required
                                                type="text">
                                     </div>
                                     <div class="card-action">

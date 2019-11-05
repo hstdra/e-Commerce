@@ -4,11 +4,9 @@ import com.team.ecommerce.entity.Category;
 import com.team.ecommerce.entity.FieldDetail;
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.service.CategoryService;
-import com.team.ecommerce.service.HistotyService;
 import com.team.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

@@ -33,6 +33,8 @@ public class ProductService {
     }
 
     public void save(Product product) {
+        if (product.getImage().isEmpty())
+            product.setImage("https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
         productRepository.save(product);
         product.getFieldDetails().forEach(fieldDetailRepository::save);
     }
@@ -51,6 +53,9 @@ public class ProductService {
         product.setDiscount(discount);
         product.setQuantity(quantity);
         product.setDescription(description);
+        if (product.getImage() == null)
+            product.setImage("https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
+
         product = productRepository.save(product);
 
         for (Map.Entry<String, String> fd : fieldDetails.entrySet()) {
@@ -67,6 +72,8 @@ public class ProductService {
 
     public void editProduct(Product product, Map<String, String> fieldDetails) {
         Product p = productRepository.getOne(product.getId());
+        if (product.getImage().isEmpty())
+            product.setImage("https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
         p.setImage(product.getImage());
         p.setName(product.getName());
         p.setPrice(product.getPrice());

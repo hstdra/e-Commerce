@@ -29,16 +29,28 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 col-12">
                     <div class="my__account__wrapper">
-                        <h3 class="account__title">Login</h3>
-                        <form method="post" th:action="@{/customer_login}">
+                        <h3 class="account__title"
+                            th:utext='${message.isEmpty() ? "Sign Up" : "Sign Up - " + message}'></h3>
+                        <form method="post"
+                              oninput='confirm.setCustomValidity(confirm.value !== password.value ? "Passwords do not match." : "")'
+                              th:action="@{~/web/signup_process}"
+                              th:object="${customer}">
                             <div class="account__form">
                                 <div class="input__box">
+                                    <label>Fullname<span>*</span></label>
+                                    <input name="name" required th:field="*{fullname}" type="text">
+                                </div>
+                                <div class="input__box">
                                     <label>Email<span>*</span></label>
-                                    <input name="email" type="text">
+                                    <input name="email" required th:field="*{email}" type="text">
                                 </div>
                                 <div class="input__box">
                                     <label>Password<span>*</span></label>
-                                    <input name="password" type="password">
+                                    <input name="password" required th:field="*{password}" type="password">
+                                </div>
+                                <div class="input__box">
+                                    <label>Confirm Password<span>*</span></label>
+                                    <input name="confirm" required type="password">
                                 </div>
                                 <div class="form__btn">
                                     <button type="submit">Signup</button>
