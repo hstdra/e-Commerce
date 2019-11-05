@@ -39,22 +39,6 @@ public class StorageController {
         return "admin/storage/manage";
     }
 
-    @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String edit(@ModelAttribute Product product, @RequestParam String fds) {
-        try {
-            Map<String, String> fieldDetails = new HashMap<>();
-            String[] details = fds.split(";;;");
-            Category category = categoryService.getOne(product.getCategory().getId());
-            for (int i = 0; i < category.getFields().size(); i++) {
-                fieldDetails.put(category.getFields().get(i).getField(), details[i]);
-            }
-            productService.editProduct(product, fieldDetails);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "redirect:/admin/storage";
-    }
-
     // Saving History And Change Product Quantity//
     @RequestMapping("import/{id}")
     public String imp(Model model, @PathVariable Integer id) {

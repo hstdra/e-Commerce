@@ -63,6 +63,22 @@ public class ProductController {
         return "admin/product/chooseCategory";
     }
 
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String edit(@ModelAttribute Product product, @RequestParam String fds) {
+        try {
+            Map<String, String> fieldDetails = new HashMap<>();
+            String[] details = fds.split(";;;");
+            Category category = categoryService.getOne(product.getCategory().getId());
+            for (int i = 0; i < category.getFields().size(); i++) {
+                fieldDetails.put(category.getFields().get(i).getField(), details[i]);
+            }
+            productService.editProduct(product, fieldDetails);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "redirect:/admin/product";
+    }
+
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String addProduct(Model model, @RequestParam("getCategoryId") Integer categoryId) {
         Product product = new Product();
