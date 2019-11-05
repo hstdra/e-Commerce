@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <div class="sidebar">
 
     <div class="sidebar-background"></div>
@@ -7,10 +7,10 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img th:src="@{~/ad/assets/img/profile.jpg}" alt="..." class="avatar-img rounded-circle">
+                    <img alt="..." class="avatar-img rounded-circle" th:src="@{~/ad/assets/img/profile.jpg}">
                 </div>
                 <div class="info">
-                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                    <a aria-expanded="true" data-toggle="collapse" href="#collapseExample">
                                             <span>
                                                 POWERTHEN
                                                 <span class="user-level">Administrator</span>
@@ -131,7 +131,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{~/admin/history/history}">
+                                <a th:href="@{~/admin/history}">
                                     <span class="sub-item">History</span>
                                 </a>
                             </li>

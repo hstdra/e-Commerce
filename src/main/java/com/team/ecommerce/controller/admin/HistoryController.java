@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("admin/history/history")
+@RequestMapping("admin/history")
 public class HistoryController {
 
     @Autowired
