@@ -13,10 +13,20 @@
 Provide system for management and selling product online
 
 ## Technologies
-* Spring Boot Framework
-* Web
-* Hibernate and JPA
-* Thymeleaf
+* Back-end
+    * Java 8
+    * Library
+        * Spring Web
+        * Spring Data JPA
+        * Spring Security
+        * Thymeleaf
+        * Lombok
+* Front-end
+    * HTML5 - CSS3 -Javascript
+    * Bootstrap - Fontawesome - Jquery
+* Database: MySQL
+* Cloud Server: AWS
+* Third-party Interface: MOMO Payment
 
 ## Setup
 Clone our github project and config like this:
@@ -35,37 +45,94 @@ spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 ```
 ./src/main/resources/hibernate.properties 
 ```properties
+# OPTIONAL
 hibernate.search.default.directory_provider=filesystem
 hibernate.search.default.indexBase=/var/lucene/indexes
 ```
+./src/main/resources/hibernate.properties 
+```properties
+##Configuration for development environment
+DEV_MOMO_ENDPOINT=https://test-payment.momo.vn
+DEV_ACCESS_KEY=key
+DEV_PARTNER_CODE=key
+DEV_SECRET_KEY=key
+
+##Configuration for production environment
+PROD_MOMO_ENDPOINT=https://payment.momo.vn
+PROD_ACCESS_KEY=key
+PROD_PARTNER_CODE=key
+PROD_SECRET_KEY=key
+
+##
+PAY_GATE=/gw_payment/transactionProcessor
+APP_IN_APP=/pay/app
+PAY_POS=/pay/pos
+PAY_QUERY_STATUS=/pay/query-status
+PAY_REFUND=/pay/refund
+PAY_CONFIRM=/pay/confirm
+```
 
 ## Features
-* Admin managment
-	* Customer management
-	* Storage history management
-	* Category and Field manegement
+* Admin management
+	* User management(admin + customer)
+	    * View/Search/Filter
+	    * Add user
+	    * Edit user information
+	    * Change user password
+	* Category management
+		* View/Search/Filter
+	    * Add category
+	    * Edit category
+	        * Change category name
+	        * Add field
+	        * Change field name
+	        * Delete field
+	    * Delete category
 	* Product management
+		* View/Search/Filter
+	    * Add product
+        * Edit product 
+        * Delete product
+	* Storage management
+	    * View/Search/Filter
+	    * Import storage
+	    * Export storage
+	    * View import/export history
 	* Order management
+        * View/Search/Filter
+        * Edit order information
+        * Change order status
 * Business web
-	* View all products
-	* Shopping feature
-	* Checkout order
-		* COD
-		* Online payment with MOMO
-	* Some manage feature for customer
+    * Basic
+        * Login
+        * Logout
+        * Signup
+	* Shopping features
+	    * Filter products
+	        * By category
+	        * By field-details
+	        * By price
+	    * Search products
+	    * View product detail
+	* Cart features(Need login)
+	    * Add product to cart
+	    * Change product quantity
+	    * Delete product from cart
+	* Order features(Need login)
+		* Checkout
+		    * COD
+		    * MOMO
+		* Management
+		    * View history
+		    * Cancel order 
+		    * Repayment(MOMO)   
+	
 
 ## To-do list:
-* Admin managment
-	* User and Product management (HIU)
-	* Storage history management (POM)
-	* Order manegement (INSIDE)
-	
-* Business Web
-	* View one product (HST)
-	* Shop cart (HST)
-	* Check out (hST)
+Everything is done
+
 ## Status
-Project is inprogress
+Project is releasing
 
 ## Contact
 Created by ABC team, contact us at hstdra@gmail.com
