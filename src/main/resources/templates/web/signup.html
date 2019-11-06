@@ -3,8 +3,8 @@
 <head>
     <title>POWERTHEN</title>
 
-    <meta th:replace="~{/web/fragment/library :: meta}"/>
-    <link th:replace="~{/web/fragment/library :: link}"/>
+    <meta th:replace="~{web/fragment/library :: meta}"/>
+    <link th:replace="~{web/fragment/library :: link}"/>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -16,9 +16,9 @@
 <div class="wrapper" id="wrapper">
 
     <!-- Header -->
-    <footer th:replace="~{/web/fragment/header :: header}"></footer>
+    <footer th:replace="~{web/fragment/header :: header}"></footer>
     <!-- Search Popup -->
-    <footer th:replace="~{/web/fragment/search :: #main-search}"></footer>
+    <footer th:replace="~{web/fragment/search :: #main-search}"></footer>
 
     <!-- Bradcaump area -->
     <div class="ht__bradcaump__area bg-image--6"></div>
@@ -67,12 +67,12 @@
     <!-- End Shop Page -->
 
     <!-- Footer Area -->
-    <footer th:replace="~{/web/fragment/footer :: footer}"></footer>
+    <footer th:replace="~{web/fragment/footer :: footer}"></footer>
 </div>
 <!-- //Main wrapper -->
 
 
-<script th:replace="~{/web/fragment/library :: script}"></script>
+<script th:replace="~{web/fragment/library :: script}"></script>
 
 </body>
 </html>

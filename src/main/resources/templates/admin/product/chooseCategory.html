@@ -3,21 +3,21 @@
 <head>
     <title>Admin Management</title>
 
-    <meta th:replace="~{/admin/fragment/library :: meta}"/>
-    <link th:replace="~{/admin/fragment/library :: link}"/>
+    <meta th:replace="~{admin/fragment/library :: meta}"/>
+    <link th:replace="~{admin/fragment/library :: link}"/>
 </head>
 <body>
 <div class="wrapper">
     <!-- Main-header -->
-    <div th:replace="~{/admin/fragment/main-header :: .main-header}"></div>
+    <div th:replace="~{admin/fragment/main-header :: .main-header}"></div>
 
     <!-- Sidebar -->
-    <div th:replace="~{/admin/fragment/sidebar :: .sidebar}"></div>
+    <div th:replace="~{admin/fragment/sidebar :: .sidebar}"></div>
 
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
-                <div th:replace="~{/admin/fragment/page-header :: page-header(items = ${ {'Product', 'Choose Category'} }) }"></div>
+                <div th:replace="~{admin/fragment/page-header :: page-header(items = ${ {'Product', 'Choose Category'} }) }"></div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -51,7 +51,7 @@
 
 
 </div>
-<script th:replace="~{/admin/fragment/library :: script}"></script>
+<script th:replace="~{admin/fragment/library :: script}"></script>
 
 <script>
     $(document).ready(function () {
