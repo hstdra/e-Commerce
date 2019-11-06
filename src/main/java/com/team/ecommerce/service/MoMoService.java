@@ -23,7 +23,7 @@ public class MoMoService {
         String amount = String.valueOf(order.getTotalOrderPrice());
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
-        String orderInfo = "Thanh toán đơn hàng #" + order.getId();
+        String orderInfo = "POWERTHEN#" + order.getId();
 
         return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, "localOrderId=" + order.getId());
     }
@@ -31,7 +31,7 @@ public class MoMoService {
     public String getMoMoPayUrl(Order order) {
         if (order.getStatus() == 10) {
             try {
-                String returnUrl = env.getProperty("hostname") + "web/order/" + order.getId();
+                String returnUrl = env.getProperty("hostname") + "/web/order/" + order.getId();
                 return "redirect:" + captureMoMoResponse(order, returnUrl).getPayUrl();
             } catch (Exception e) {
                 e.printStackTrace();

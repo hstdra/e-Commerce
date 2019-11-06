@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.Instant;
 
 @Controller
 @RequestMapping("/web/order")
@@ -75,6 +77,7 @@ public class CustomerOrderController {
         cart.setPhone(order.getPhone());
         cart.setAddress(order.getAddress());
         cart.setStatus(order.getStatus());
+        cart.setDate(Date.from(Instant.now()));
         orderService.saveOrder(cart);
         session.setAttribute("cart", orderService.createShopCart(cart.getUser().getId()));
 

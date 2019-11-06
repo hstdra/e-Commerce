@@ -116,7 +116,7 @@ public class EcommerceApplicationTests {
             add("https://img.vnshop.vn/height/350/media/catalog/product/r/a/ram-apacer-panther-golden-1_1.jpg");
         }};
 
-        for (int i = 0; i < 1357; i++) {
+        for (int i = 0; i < 265; i++) {
             String category = "Ram";
             long price = random.nextInt(6500) * 1000 + 200000;
             long discount = Math.round(price * (100 - random.nextInt(30)) / 100000) * 1000;
