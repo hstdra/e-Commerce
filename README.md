@@ -1,4 +1,7 @@
 # e-Commerce Project
+[![Build Status](https://github.com/twbs/bootstrap/workflows/Tests/badge.svg)](https://github.com/twbs/bootstrap/actions?workflow=Tests)
+[![Version](https://img.shields.io/badge/version-1.0.RELEASE-yellow)](https://semver.org)
+[![version](https://img.shields.io/badge/spring_boot-2.1.8.RELEASE-green.svg)](https://semver.org)
 > Powerthen - Hệ thống cung cấp linh kiện điện tử "hàng đầu Việt Nam"
 
 ## Table of contents
@@ -112,6 +115,11 @@ PAY_CONFIRM=/pay/confirm
 	        * By category
 	        * By field-details
 	        * By price
+		* Sort producsts
+			* Newest
+			* Oldest
+			* Most expensive
+			* Cheaptest
 	    * Search products
 	    * View product detail
 	* Cart features(Need login)
