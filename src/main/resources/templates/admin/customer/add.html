@@ -17,14 +17,14 @@
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
-                <div th:replace="~{admin/fragment/page-header :: page-header(items = ${ {'Customer', 'Add'} }) }"></div>
+                <div th:replace="~{admin/fragment/page-header :: page-header(items = ${ {'User', 'Add'} }) }"></div>
                 <!--                Change HERE-->
                 <div class="row">
                     <div class="col-md-12">
                         <form th:action="@{~/admin/customer/save}" th:object="${user}" method="post" id="addForm">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-title">Customer</div>
+                                    <div class="card-title">User</div>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group" contenteditable="false" hidden="hidden">
@@ -32,17 +32,17 @@
                                         <input type="text" class="form-control form-control" id="id" th:field="*{id}" placeholder="ID">
                                     </div>
                                     <div class="form-group">
-                                        <label for="defaultInput">Customer Email</label>
+                                        <label for="defaultInput">User Email</label>
                                         <input class="form-control form-control" id="defaultInput" name="email"
-                                               placeholder="Customer Email" required th:field="*{email}" type="email">
+                                               placeholder="User Email" required th:field="*{email}" type="email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="defaultInput">Customer Name</label>
+                                        <label for="defaultInput">User Name</label>
                                         <input class="form-control form-control" id="defaultInput"
-                                               placeholder="Customer Name" required th:field="*{fullname}" type="text">
+                                               placeholder="User Name" required th:field="*{fullname}" type="text">
                                     </div>
                                     <div class="form-group">
-                                        <label for="defaultInput">Customer Password</label>
+                                        <label for="defaultInput">User Password</label>
                                         <input type="password" class="form-control form-control" th:field="*{password}" placeholder="Password" id="pass" required name="password" onkeyup='check();'>
                                     </div>
                                     <div class="form-group">
