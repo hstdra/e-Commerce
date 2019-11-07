@@ -17,16 +17,16 @@
     <div class="main-panel">
         <div class="content">
             <div class="page-inner">
-                <div th:replace="~{admin/fragment/page-header :: page-header(items = ${ {'Customer', 'Management'} }) }"></div>
+                <div th:replace="~{admin/fragment/page-header :: page-header(items = ${ {'User', 'Management'} }) }"></div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <h4 class="card-title">Customer Management</h4>
+                                <h4 class="card-title">User Management</h4>
                                 <a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/customer/add}">
                                     <i class="fa fa-plus"></i>
-                                    Add Customer
+                                    Add User
                                 </a>
                             </div>
 
