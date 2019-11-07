@@ -92,7 +92,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#multi-filter-select').DataTable({
+        var table = $('#multi-filter-select').DataTable({
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;
@@ -114,6 +114,7 @@
                 });
             }
         });
+        table.order([1, 'desc']).draw();
         $('select').selectpicker({
             liveSearch: 'true',
             size: 6
