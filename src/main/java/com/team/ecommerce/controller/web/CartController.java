@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -19,23 +20,26 @@ public class CartController {
     private OrderDetailService orderDetailService;
 
     @RequestMapping("add/{product_id}")
-    public String addToCart(@PathVariable Integer product_id, HttpSession session) {
+    public String addToCart(@PathVariable Integer product_id, HttpSession session, HttpServletRequest request) {
         Order cart = (Order) session.getAttribute("cart");
+        session.setAttribute("previous", request.getHeader("referer"));
         orderDetailService.addProductToCart(product_id, cart);
         return "redirect:/web/cart/update";
     }
 
     @RequestMapping("minus/{product_id}")
-    public String minusFromCart(@PathVariable Integer product_id, HttpSession session) {
+    public String minusFromCart(@PathVariable Integer product_id, HttpSession session, HttpServletRequest request) {
         Order cart = (Order) session.getAttribute("cart");
+        session.setAttribute("previous", request.getHeader("referer"));
         orderDetailService.minusProductFromCart(product_id, cart);
         return "redirect:/web/cart/update";
     }
 
     @RequestMapping("delete/{product_id}")
-    public String deleteFromCart(@PathVariable Integer product_id, HttpSession session) {
+    public String deleteFromCart(@PathVariable Integer product_id, HttpSession session, HttpServletRequest request) {
         Order cart = (Order) session.getAttribute("cart");
         orderDetailService.deleteProductFromCart(product_id, cart);
+        session.setAttribute("previous", request.getHeader("referer"));
         return "redirect:/web/cart/update";
     }
 
@@ -46,7 +50,7 @@ public class CartController {
             session.setAttribute("cart", orderService.getShopCart(cart.getUser().getId()));
         } catch (Exception ignored) {
         }
-        return "redirect:/web";
+        return "redirect:" + session.getAttribute("previous");
     }
 
 
