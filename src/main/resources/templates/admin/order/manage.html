@@ -25,10 +25,6 @@
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <h4 class="card-title">Order Management</h4>
-                                <!--<a class="btn btn-primary btn-round ml-auto" th:href="@{~/admin/category/add}">
-                                    <i class="fa fa-plus"></i>
-                                    Add Category
-                                </a>-->
                             </div>
 
                             <div class="card-body">
@@ -37,9 +33,8 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Total Price</th>
                                             <th>Date</th>
                                             <th>Type</th>
                                             <th>Status</th>
@@ -49,9 +44,8 @@
                                         <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Total Price</th>
                                             <th>Date</th>
                                             <th>Type</th>
                                             <th>Status</th>
@@ -61,9 +55,8 @@
                                         <tbody>
                                         <tr th:each="order : ${orders}">
                                             <td th:utext="${order.id}"></td>
-                                            <td th:utext="${order.name}"></td>
-                                            <td th:utext="${order.address}"></td>
-                                            <td th:utext="${order.phone}"></td>
+                                            <td th:utext="${order.user.email}"></td>
+                                            <td th:utext="${@vncurrency.format(order.getTotalOrderPrice())}"></td>
                                             <td th:utext="${@dateFormat.format(order.date)}"></td>
                                             <td th:utext="${order.paymentType}"></td>
                                             <td th:utext="${order.paymentStatus }"></td>
@@ -87,14 +80,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
-
             </div>
         </div>
-
     </div>
 
 
@@ -103,7 +91,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#multi-filter-select').DataTable({
+        var table = $('#multi-filter-select').DataTable({
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;
@@ -125,6 +113,7 @@
                 });
             }
         });
+        table.order([0, 'desc']).draw();
         $('select').selectpicker({
             liveSearch: 'true',
             size: 6
