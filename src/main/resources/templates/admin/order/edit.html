@@ -21,7 +21,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form th:action="@{~/admin/order/save_info}" th:object="${order}" method="post">
+                        <form method="post" th:action="@{~/admin/order/save_info}" th:object="${order}">
 
                             <div class="card">
                                 <div class="card-header">
@@ -30,75 +30,89 @@
                                 <div class="card-body">
                                     <div class="tab-content mt-2 mb-3" id="pills-tabContent">
 
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                             aria-labelledby="pills-home-tab">
+                                        <div aria-labelledby="pills-home-tab" class="tab-pane fade show active"
+                                             id="pills-home"
+                                             role="tabpanel">
                                             <div class="col-md-6">
                                                 <div class="form-group" hidden="hidden">
                                                     <label>ID</label>
-                                                    <input type="text" class="form-control form-control" name="email"
-                                                           placeholder="ID" id="id" th:field="*{id}">
+                                                    <input class="form-control form-control" id="id" name="email"
+                                                           placeholder="ID" th:field="*{id}" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="email">Email</label>
-                                                    <input type="email" disabled class="form-control form-control"
-                                                           name="email" placeholder="Email" id="email"
-                                                           th:value="${order.user.email}">
+                                                    <input class="form-control form-control" disabled id="email"
+                                                           name="email" placeholder="Email"
+                                                           th:value="${order.user.email}"
+                                                           type="email">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Payment Type</label>
-                                                    <input type="text" disabled class="form-control form-control"
-                                                           name="Address"
-                                                           placeholder="Address" th:value="${order.getPaymentType()}">
+                                                    <input class="form-control form-control" disabled name="Address"
+                                                           placeholder="Address"
+                                                           th:value="${order.getPaymentType()}" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Date</label>
-                                                    <input type="text" class="form-control form-control" name="date"
-                                                           placeholder="Date" disabled
-                                                           th:value="${@dateFormat.format(order.date)}">
+                                                    <input class="form-control form-control" disabled name="date"
+                                                           placeholder="Date"
+                                                           th:value="${@dateFormat.format(order.date)}"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Total Price</label>
+                                                    <input class="form-control form-control" disabled name="Address"
+                                                           placeholder="Address"
+                                                           th:value="${@vncurrency.format(order.getTotalOrderPrice())}"
+                                                           type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Name</label>
-                                                    <input type="text" class="form-control form-control" name="name"
-                                                           placeholder="Name" required th:field="*{name}">
+                                                    <input class="form-control form-control" name="name"
+                                                           placeholder="Name"
+                                                           required th:field="*{name}" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone">Phone</label>
-                                                    <input type="text" class="form-control form-control" name="email"
-                                                           id="phone" placeholder="Email" required th:field="*{phone}">
+                                                    <input class="form-control form-control" id="phone" name="email"
+                                                           placeholder="Email" required th:field="*{phone}" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Address</label>
-                                                    <input type="text" class="form-control form-control" name="Address"
-                                                           placeholder="Address" th:field="*{address}">
+                                                    <input class="form-control form-control" name="Address"
+                                                           placeholder="Address"
+                                                           th:field="*{address}" type="text">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group" id="payment_status">
                                                     <label>Payment Status</label>
-                                                    <select th:if='${order.getPaymentType().equals("COD")}'
+                                                    <select class="form-control form-control"
                                                             th:field="*{status}"
-                                                            class="form-control form-control">
+                                                            th:if='${order.getPaymentType().equals("COD")}'>
                                                         <option value="1">Đặt hàng thành công</option>
                                                         <option value="2">Đã xác nhận</option>
                                                         <option value="3">Đang giao hàng</option>
                                                         <option value="4">Đã nhận hàng</option>
                                                         <option value="5">Đã hủy</option>
                                                     </select>
-                                                    <select th:if='${order.getPaymentType().equals("MOMO")}'
+                                                    <select class="form-control form-control"
                                                             th:field="*{status}"
-                                                            class="form-control form-control">
+                                                            th:if='${order.getPaymentType().equals("MOMO")}'>
                                                         <option value="10">Đang chờ thanh toán</option>
                                                         <option value="11">Đặt hàng thành công</option>
                                                         <option value="12">Đã xác nhận</option>
@@ -119,6 +133,51 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h4 class="card-title">List Products</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="display table table-striped table-hover" id="multi-filter-select">
+                                        <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total Price</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total Price</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        <tr th:each="orderDetail : ${order.orderDetails}">
+                                            <td th:utext='${orderDetail.product.name}'></td>
+                                            <td th:utext='${orderDetail.quantity}'></td>
+                                            <td th:utext='${@vncurrency.format(orderDetail.price)}'></td>
+                                            <td
+                                                    th:utext='${@vncurrency.format(orderDetail.price * orderDetail.quantity)}'>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

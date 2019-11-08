@@ -94,8 +94,8 @@
 <script th:replace="~{admin/fragment/library :: script}"></script>
 
 <script>
-   $(document).ready(function () {
-        $('#multi-filter-select').DataTable({
+    $(document).ready(function () {
+        var table = $('#multi-filter-select').DataTable({
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;
@@ -117,6 +117,7 @@
                 });
             }
         });
+        table.order([0, 'desc']).draw();
         $('select').selectpicker({
             liveSearch: 'true',
             size: 6
