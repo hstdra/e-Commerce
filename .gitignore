@@ -39,3 +39,4 @@ build/
 ./src/main/resources/application.properties
 *.properties
 /com.team.ecommerce.entity.*
+.gitignore
