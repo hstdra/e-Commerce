@@ -1,6 +1,5 @@
 # PowerThen e-Commerce Project
-[![Build Status](https://github.com/hstdra/e-Commerce)
-[![Version](https://img.shields.io/badge/version-1.0.RELEASE-yellow)](https://github.com/hstdra/e-Commerce)
+[![Build Status](https://github.com/twbs/bootstrap/workflows/Tests/badge.svg)](https://github.com/twbs/bootstrap/actions?workflow=Tests)[![Version](https://img.shields.io/badge/version-1.0.RELEASE-yellow)](https://github.com/hstdra/e-Commerce)
 [![version](https://img.shields.io/badge/spring_boot-2.1.8.RELEASE-green.svg)](https://github.com/hstdra/e-Commerce)
 > Powerthen - Hệ thống cung cấp linh kiện điện tử "hàng đầu Việt Nam"
 
