@@ -591,8 +591,11 @@
         url.searchParams.set("q", q);
 
         if (e.which === 13) {
-            let url = new URL(window.location.href);
+            let url = new URL("http://" + window.location.host + "/web");
+            url.searchParams.delete("ct");
+            url.searchParams.delete("fds");
             url.searchParams.set("q", q);
+            url.searchParams.set("page", 1);
             window.location.href = url.href;
         } else
             $.ajax({

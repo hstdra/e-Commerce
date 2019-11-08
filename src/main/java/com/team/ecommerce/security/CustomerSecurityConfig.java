@@ -49,6 +49,18 @@ public class CustomerSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().logout().logoutUrl("/web/logout_success").clearAuthentication(true).invalidateHttpSession(true);
 
+        http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and()
+                .formLogin()
+                .loginProcessingUrl("/customer_login")
+                .loginPage("/web/login")
+                .successHandler(successHandler())
+                .failureUrl("/web/login?message=error")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and().logout().logoutUrl("/web/logout_success").clearAuthentication(true).invalidateHttpSession(true);
+
+
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 }
