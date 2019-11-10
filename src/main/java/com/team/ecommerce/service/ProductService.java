@@ -36,7 +36,10 @@ public class ProductService {
         if (product.getImage().isEmpty())
             product.setImage("https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
         productRepository.save(product);
-        product.getFieldDetails().forEach(fieldDetailRepository::save);
+        FieldDetailRepository fieldDetailRepository1 = fieldDetailRepository;
+        for (FieldDetail fieldDetail : product.getFieldDetails()) {
+            fieldDetailRepository1.save(fieldDetail);
+        }
     }
 
     public void delete(int id) {

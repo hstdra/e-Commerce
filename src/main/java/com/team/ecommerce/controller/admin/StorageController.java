@@ -1,7 +1,5 @@
 package com.team.ecommerce.controller.admin;
 
-import com.team.ecommerce.entity.Category;
-import com.team.ecommerce.entity.FieldDetail;
 import com.team.ecommerce.entity.History;
 import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.service.CategoryService;
@@ -16,9 +14,6 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/storage")
@@ -64,6 +59,7 @@ public class StorageController {
             }
             else {
                 History history = new History();
+                product = productService.get(product.getId());
                 history.setDescription(histotyDescription);
                 history.setDate(new Date());
                 history.setProduct(product);
@@ -87,6 +83,7 @@ public class StorageController {
             if (temp > product.getQuantity()) System.out.println("false");
             else {
                 History history = new History();
+                product = productService.get(product.getId());
                 history.setDescription(histotyDescription);
                 history.setDate(new Date());
                 history.setProduct(product);

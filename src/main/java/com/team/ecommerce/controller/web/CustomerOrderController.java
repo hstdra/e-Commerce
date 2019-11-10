@@ -1,9 +1,12 @@
 package com.team.ecommerce.controller.web;
 
 import com.team.ecommerce.entity.Order;
+import com.team.ecommerce.entity.OrderDetail;
+import com.team.ecommerce.entity.Product;
 import com.team.ecommerce.entity.User;
 import com.team.ecommerce.service.MoMoService;
 import com.team.ecommerce.service.OrderService;
+import com.team.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,9 @@ import java.time.Instant;
 public class CustomerOrderController {
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private MoMoService moMoService;
@@ -79,6 +85,11 @@ public class CustomerOrderController {
         cart.setStatus(order.getStatus());
         cart.setDate(Date.from(Instant.now()));
         orderService.saveOrder(cart);
+        for (OrderDetail orderDetail : cart.getOrderDetails()) {
+            Product product = orderDetail.getProduct();
+            product.setQuantity(product.getQuantity() - orderDetail.getQuantity());
+            productService.save(product);
+        }
         session.setAttribute("cart", orderService.createShopCart(cart.getUser().getId()));
 
         String returnUrl = moMoService.getMoMoPayUrl(cart);

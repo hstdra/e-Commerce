@@ -116,7 +116,7 @@ public class EcommerceApplicationTests {
             add("https://img.vnshop.vn/height/350/media/catalog/product/r/a/ram-apacer-panther-golden-1_1.jpg");
         }};
 
-        for (int i = 0; i < 265; i++) {
+        for (int i = 0; i < 1; i++) {
             String category = "Ram";
             long price = random.nextInt(6500) * 1000 + 200000;
             long discount = Math.round(price * (100 - random.nextInt(30)) / 100000) * 1000;
@@ -208,7 +208,7 @@ public class EcommerceApplicationTests {
             add("https://img.vnshop.vn/height/350/media/catalog/product/1/_/1_54_19.jpg");
         }};
 
-        for (int i = 0; i < 105; i++) {
+        for (int i = 0; i < 1; i++) {
             String category = "VGA";
             long price = random.nextInt(9000) * 4000 + 1000000;
             long discount = Math.round(price * (100 - random.nextInt(30)) / 100000) * 1000;
@@ -237,7 +237,7 @@ public class EcommerceApplicationTests {
             productService.saveProduct(name, category, price, discount, quantity, img, null, fieldDetails);
         }
     }
-    
+
     @Test
     public void testCreateProduct3() {
         ArrayList<String> hang = new ArrayList<String>() {{
@@ -259,8 +259,8 @@ public class EcommerceApplicationTests {
         }};
         ArrayList<String> kichthuoc = new ArrayList<String>() {{
             add("M.2");
-            add("2.5\"");
-            add("3.5\"");
+            add("2.5");
+            add("3.5");
             add("mSATA");
         }};
         ArrayList<String> chuan = new ArrayList<String>() {{
@@ -296,7 +296,7 @@ public class EcommerceApplicationTests {
             add("https://img.vnshop.vn/height/350/media/catalog_v2/media/41/72/1566183207.400105_O_cung_SSD_Kingston_KC2000_500GB_M.2_2280_NVMe_PCIe_SKC2000M8500G_1.jpg");
         }};
 
-        for (int i = 0; i < 87; i++) {
+        for (int i = 0; i < 1; i++) {
             String category = "SSD";
             long price = random.nextInt(4400) * 1000 + 400000;
             long discount = Math.round(price * (100 - random.nextInt(30)) / 100000) * 1000;
@@ -320,6 +320,15 @@ public class EcommerceApplicationTests {
                 }
             };
             productService.saveProduct(name, category, price, discount, quantity, img, null, fieldDetails);
+        }
+    }
+
+    @Test
+    public void tao3() {
+        for (int i = 0; i < 212; i++) {
+            testCreateProduct();
+            testCreateProduct2();
+            testCreateProduct3();
         }
     }
 }

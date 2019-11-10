@@ -23,7 +23,7 @@ public class MoMoService {
         String amount = String.valueOf(order.getTotalOrderPrice());
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
-        String orderInfo = "POWERTHEN#" + order.getId();
+        String orderInfo = "Thanh toán đơn hàng #" + order.getId();
 
         return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, "localOrderId=" + order.getId());
     }
