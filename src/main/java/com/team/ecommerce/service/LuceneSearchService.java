@@ -43,6 +43,7 @@ public class LuceneSearchService {
                 .overridesForField("description", "without_edgeNgram")
                 .overridesForField("categoryFacet", "without_edgeNgram")
                 .overridesForField("fieldDetailSearch", "without_edgeNgram")
+                .overridesForField("fieldDetailSearchBar", "without_edgeNgram")
                 .get();
     }
 

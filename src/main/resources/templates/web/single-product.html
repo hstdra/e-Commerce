@@ -42,7 +42,7 @@
                                         </ul>
                                     </div>
                                     <div class="price-box">
-                                        <span th:utext="${@vncurrency.format(product.price)}"></span>
+                                        <span th:utext="${@vncurrency.format(product.getFinalPrice())}"></span>
                                     </div>
                                     <div class="product__overview">
                                         <strong>Thông số kỹ thuật</strong>
@@ -55,19 +55,20 @@
                                         </table>
                                     </div>
                                     <div class="box-tocart d-flex">
-                                        <span>Qty</span>
-                                        <input class="input-text qty" id="qty" min="1" name="qty" title="Qty"
-                                               type="number"
-                                               value="1">
-                                        <div class="addtocart__actions">
-                                            <button class="tocart" title="Add to Cart" type="submit">
+                                        <div class="addtocart__actions" type="submit">
+                                            <button class="tocart">
                                                 <a th:href="@{~/web/cart/add/{id}(id=${product.id})}">Add to Cart</a>
                                             </button>
                                         </div>
-                                        <div class="product-addto-links clearfix">
-                                            <a class="wishlist" href="#"></a>
-                                            <a class="compare" href="#"></a>
+                                        <div class="addtocart__actions">
+                                            <button class="tocart" style="background: #0a97ad; margin-left: 20px"
+                                                    th:if='${session.customer != null}' type="submit">
+                                                <a th:href="@{~/admin/product/edit/{id}(id=${product.id})}"
+                                                   th:if='${session.customer.role.equals("ROLE_ADMIN")}'>Edit
+                                                    Information</a>
+                                            </button>
                                         </div>
+
                                     </div>
                                     <div class="product_meta">
                                     </div>

@@ -1,5 +1,5 @@
 # PowerThen e-Commerce Project
-[![Build Status](https://github.com/twbs/bootstrap/workflows/Tests/badge.svg)](https://github.com/twbs/bootstrap/actions?workflow=Tests)[![Version](https://img.shields.io/badge/version-1.0.RELEASE-yellow)](https://github.com/hstdra/e-Commerce)
+[![Build Status](https://github.com/twbs/bootstrap/workflows/Tests/badge.svg)](https://github.com/twbs/bootstrap/actions?workflow=Tests)[![Version](https://img.shields.io/badge/version-1.1.RELEASE-yellow)](https://github.com/hstdra/e-Commerce)
 [![version](https://img.shields.io/badge/spring_boot-2.1.8.RELEASE-green.svg)](https://github.com/hstdra/e-Commerce)
 > Powerthen - Hệ thống cung cấp linh kiện điện tử "hàng đầu Việt Nam"
 
@@ -34,7 +34,7 @@ Provide system for management and selling product online
 ## Setup
 Clone our github project and config like this:
 
-./src/main/resources/applicaiton.properties
+./src/main/resources/application.properties
 ```properties
 spring.datasource.url=<url>
 spring.datasource.username=<username>
@@ -115,11 +115,11 @@ PAY_CONFIRM=/pay/confirm
 	        * By category
 	        * By field-details
 	        * By price
-		* Sort producsts
+		* Sort products
 			* Newest
 			* Oldest
 			* Most expensive
-			* Cheaptest
+			* Cheapest
 	    * Search products
 	    * View product detail
 	* Cart features(Need login)

@@ -100,6 +100,15 @@ public class Product {
         }
     }
 
+    @Field(name = "fieldDetailSearchBar", analyzer = @Analyzer(definition = "without_edgeNgram"))
+    public String getFieldDetailSearchBar() {
+        try {
+            return fieldDetails.stream().map(fd -> fd.getDetail() + " ").collect(Collectors.joining());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     @Field(name = "fieldDetails", analyze = Analyze.NO, bridge = @FieldBridge(impl = CollectionToCSVBridge.class))
     @Facet(forField = "fieldDetails", name = "fieldDetailsFacet")
     public List<String> getFieldDetailsFacet() {

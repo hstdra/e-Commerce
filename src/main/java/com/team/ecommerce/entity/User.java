@@ -25,7 +25,7 @@ public class User {
     @Column(nullable = false)
     private String fullname;
 
-    @Column(columnDefinition = "VARCHAR(20) NOT NULL DEFAULT 'ROLE_USER'")
+    @Column(columnDefinition = "VARCHAR(20) NOT NULL DEFAULT 'ROLE_CUSTOMER'")
     private String role;
 
     @JsonIgnore

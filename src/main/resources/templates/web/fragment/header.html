@@ -188,6 +188,8 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
+                                                <span th:if='${session.customer != null}'><a th:href="@{~/admin}"
+                                                                                             th:if='${session.customer.role == "ROLE_ADMIN"}'>Admin Management</a></span>
                                                 <span><a th:href="@{~/web/order/history}">Order History</a></span>
                                                 <span><a th:href="@{~/web/logout_success}">Logout</a></span>
                                             </div>
