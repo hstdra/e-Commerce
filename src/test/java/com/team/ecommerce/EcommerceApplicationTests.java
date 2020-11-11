@@ -325,10 +325,10 @@ public class EcommerceApplicationTests {
 
     @Test
     public void tao3() {
-        for (int i = 0; i < 212; i++) {
+        for (int i = 0; i < 200; i++) {
             testCreateProduct();
             testCreateProduct2();
-            testCreateProduct3();
+//            testCreateProduct3();
         }
     }
 }
